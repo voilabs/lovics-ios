@@ -1,0 +1,381 @@
+{
+    "_layout": {
+        "albums": "My Albums",
+        "explore": "Explore",
+        "favorites": "Favorites",
+        "profile": "Profile"
+    },
+    "appAbout": {
+        "title": "About",
+        "website": "Website",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfUse": "Terms of Use",
+        "appName": "Lovics",
+        "versionPrefix": "Version",
+        "copyright": "© {{year}} Lovics. All rights reserved."
+    },
+    "common": {
+        "error": "Error",
+        "success": "Success",
+        "saved": "Saved",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "remove": "Remove",
+        "ok": "OK"
+    },
+    "navigation": {
+        "home": "Home",
+        "search": "Search",
+        "history": "History",
+        "profile": "Profile"
+    },
+
+    "favorites": {
+        "subtitle": "My Favorite Vaults",
+        "fetchError": "There was an issue loading favorites.",
+        "genericError": "An error occurred.",
+        "retry": "Try Again",
+        "emptyTitle": "You don't have any favorite vaults yet.",
+        "emptyDescription": "Add vaults to your favorites for quick access here.",
+        "exploreVaults": "Explore Vaults"
+    },
+    "home": {
+        "welcomeBack": "Welcome back, {{name}}",
+        "myVaults": "My Vaults",
+        "newVault": "New Vault",
+        "errorTitle": "An Error Occurred",
+        "retry": "Try Again",
+        "emptyTitle": "You don't have a vault yet.",
+        "emptyDescription": "You can click the button below to create a vault.",
+        "createFirstVault": "Create Your First Vault"
+    },
+    "newVault": {
+        "errorNameRequired": "Please enter a vault name.",
+        "errorPasswordLength": "Vault password must be at least 6 characters.",
+        "errorPasswordMismatch": "Passwords do not match.",
+        "createError": "An error occurred while creating the vault.",
+        "title": "New Vault",
+        "vaultNameLabel": "Vault Name",
+        "vaultNamePlaceholder": "Ex: My Personal Docs",
+        "colorLabel": "Color",
+        "iconLabel": "Icon",
+        "themeLabel": "Background Theme",
+        "encryptionTitle": "Encryption",
+        "encryptionDescription": "End-to-end encrypt vault content. If you lose the password, data cannot be recovered.",
+        "vaultPasswordLabel": "Vault Password",
+        "vaultPasswordPlaceholder": "Set a password",
+        "confirmPasswordLabel": "Confirm Password",
+        "confirmPasswordPlaceholder": "Re-enter password",
+        "encryptionWarning": "We do not store this password on our servers. If you forget it, you cannot open your files.",
+        "createButton": "Create"
+    },
+    "profile": {
+        "accountSection": "Account",
+        "settingsItem": "Settings",
+        "signOutItem": "Sign Out",
+        "appSection": "App",
+        "aboutItem": "About",
+        "subtitle": "Manage your profile"
+    },
+    "search": {
+        "subtitle": "Search vaults and media",
+        "label": "Search",
+        "searching": "Searching...",
+        "noResults": "No results found",
+        "placeholder": "Search vaults and media",
+        "startSearching": "Type above to start searching"
+    },
+    "settingsAccount": {
+        "errorNameRequired": "Name field cannot be empty.",
+        "successUpdated": "Account information updated.",
+        "title": "Account Info",
+        "firstNameLabel": "First Name",
+        "firstNamePlaceholder": "Your name",
+        "lastNameLabel": "Last Name",
+        "lastNamePlaceholder": "Your surname",
+        "emailLabel": "Email",
+        "emailWarning": "Email address cannot be changed.",
+        "saveButton": "Save"
+    },
+    "settingsIndex": {
+        "generalSection": "General",
+        "accountInfoItem": "Account Info",
+        "securityItem": "Security",
+        "title": "Settings"
+    },
+    "settingsSecurity": {
+        "errorAllFields": "Please fill in all fields.",
+        "errorPasswordLength": "New password must be at least 8 characters.",
+        "errorMismatch": "New passwords do not match.",
+        "errorFailed": "Password could not be changed.",
+        "successUpdated": "Your password has been successfully updated.",
+        "title": "Security",
+        "currentPasswordLabel": "Current Password",
+        "currentPasswordPlaceholder": "Enter your current password",
+        "newPasswordLabel": "New Password",
+        "newPasswordPlaceholder": "Enter your new password",
+        "confirmPasswordLabel": "New Password (Confirm)",
+        "confirmPasswordPlaceholder": "Re-enter your new password",
+        "updateButton": "Update Password"
+    },
+    "vaultDetail": {
+        "errorPasswordEmpty": "New password cannot be empty.",
+        "errorMismatch": "Passwords do not match.",
+        "errorLocked": "Vault is locked, password cannot be changed.",
+        "successUpdated": "Password successfully updated.",
+        "optionsTitle": "Options",
+        "lockVault": "Lock Vault",
+        "changePassword": "Change Password",
+        "setNewPasswordTitle": "Set New Password",
+        "passwordChangeWarning": "You are about to change your vault password. If you lose this password, you will not be able to access the vault again.",
+        "currentPasswordPlaceholder": "Current Password",
+        "newPasswordPlaceholder": "New Password",
+        "confirmPasswordPlaceholder": "Confirm New Password",
+        "updating": "Updating...",
+        "updatePasswordButton": "Update Password",
+        "addMember": "Add Member",
+        "settings": "Settings",
+        "emptyTitle": "This vault is currently empty.",
+        "emptyDescription": "Start adding content now!"
+    },
+    "vaultInvite": {
+        "errorEmailRequired": "Email is required.",
+        "errorPasswordRequired": "Password is required.",
+        "errorPasswordLength": "Password must be at least 6 characters.",
+        "errorLocked": "Vault is locked. You must unlock it before sending an invite.",
+        "inviteSentTitle": "Invite Sent",
+        "inviteSentEncryptedBody": "User added successfully.\n\n⚠️ IMPORTANT: You must securely share the password ({password}) you set with the user. They cannot open the vault without it.",
+        "sharePasswordButton": "Share Password",
+        "shareMessage": "I invited you to my Lovics vault. The password to open it is: {password}",
+        "inviteSentBody": "User successfully added to the vault.",
+        "okButton": "OK",
+        "removeMemberTitle": "Remove Member",
+        "removeMemberConfirm": "Are you sure you want to remove user {name} from this vault?",
+        "cancel": "Cancel",
+        "remove": "Remove",
+        "title": "Members & Invite",
+        "inviteSectionTitle": "Invite New Member",
+        "inviteDescriptionEncrypted": "Set a temporary or permanent password for the invitee. You must communicate this password to them manually.",
+        "inviteDescription": "Enter the email address to invite a user.",
+        "emailPlaceholder": "User Email",
+        "passwordPlaceholder": "Set Password for this Invite",
+        "sendButton": "Send Invite",
+        "membersSectionTitle": "Members ({count})",
+        "youSuffix": "(You)",
+        "ownerBadge": "Owner"
+    },
+    "vaultPassword": {
+        "errorKeyNotFound": "Vault key not found (Data error).",
+        "errorWrongPassword": "Incorrect password, please try again.",
+        "errorFailed": "Could not open vault.",
+        "descriptionMember": "Enter the vault password shared with you.",
+        "descriptionOwner": "Enter your vault password.",
+        "passwordPlaceholder": "Vault Password",
+        "unlockButton": "Unlock"
+    },
+    "vaultSettings": {
+        "themeDefault": "Default",
+        "themeDark": "Dark",
+        "themeNature": "Nature",
+        "themeSpace": "Space",
+        "successUpdated": "Vault info updated.",
+        "deleteTitle": "Delete Vault",
+        "deleteConfirm": "Are you sure you want to delete this vault and ALL files inside? This action cannot be undone.",
+        "delete": "Delete",
+        "title": "Vault Settings",
+        "vaultNamePlaceholder": "Vault Name",
+        "appearanceSection": "Appearance",
+        "iconLabel": "Icon",
+        "colorLabel": "Color",
+        "themeLabel": "Theme",
+        "securitySection": "Security",
+        "changePasswordItem": "Change Password",
+        "encryptionDisabledItem": "Encryption (Disabled)",
+        "encryptionDisabledAlert": "This vault is not encrypted.",
+        "saveButton": "Save Changes",
+        "deleteVaultButton": "Delete Vault",
+        "selectIconTitle": "Select Icon",
+        "selectColorTitle": "Select Color",
+        "selectThemeTitle": "Select Theme"
+    },
+    "vaultUpload": {
+        "filePickError": "There was an issue picking the file.",
+        "title": "New Post",
+        "postTitleLabel": "Title",
+        "postTitlePlaceholder": "Add a title to your post...",
+        "mediaLabel": "Media",
+        "pickMedia": "Pick Photo or Video",
+        "descriptionPlaceholder": "Add description (optional)...",
+        "addMore": "Add more",
+        "uploading": "Uploading...",
+        "share": "Share"
+    },
+    "onboarding": {
+        "appName": "lovics.",
+        "startButton": "Get Started",
+        "memoryLabel": "Memory",
+        "step1": {
+            "title": "Most Special Moments",
+            "subtitle": "Some memories belong to just two people. Moments that become more valuable as shared, never to be seen by others.",
+            "card": {
+                "title": "Our Story",
+                "subtitle": "Just Us Two"
+            }
+        },
+        "step2": {
+            "title": "Just Our Crew",
+            "subtitle": "Our laughter, our silliness... In that safe space where no one else watches, special only to us.",
+            "card": {
+                "title": "Our Squad",
+                "subtitle": "Secret Space"
+            }
+        },
+        "step3": {
+            "title": "Completely Yours",
+            "subtitle": "Your memories are your private life. There is no room for third parties here, only you and the ones you choose.",
+            "card": {
+                "title": "Away from Prying Eyes",
+                "subtitle": "Completely Hidden"
+            }
+        }
+    },
+    "signIn": {
+        "step1": {
+            "title": "We missed you!",
+            "subtitle": "Ready to pick up where you left off?",
+            "button": "Continue",
+            "form": {
+                "email": {
+                    "label": "Email",
+                    "error": {
+                        "required": "Please enter your email address.",
+                        "invalid": "You entered an invalid email address."
+                    }
+                }
+            }
+        },
+        "step2": {
+            "title": "Welcome back",
+            "subtitle": "Enter your password to sign in",
+            "button": "Sign In",
+            "form": {
+                "password": {
+                    "label": "Password",
+                    "error": {
+                        "required": "Please enter your password."
+                    }
+                }
+            },
+            "forgotPassword": "Forgot your password?"
+        },
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign Up"
+    },
+    "signUp": {
+        "welcome": {
+            "title": "Join us!",
+            "subtitle": "We can't wait to see you among us.",
+            "button": "Continue"
+        },
+        "step1": {
+            "form": {
+                "firstName": {
+                    "label": "First Name",
+                    "error": {
+                        "required": "Please enter your first name."
+                    }
+                },
+                "lastName": {
+                    "label": "Last Name",
+                    "error": {
+                        "required": "Please enter your last name."
+                    }
+                }
+            }
+        },
+        "step2": {
+            "title": "Email",
+            "subtitle": "Enter your email address to sign up",
+            "form": {
+                "email": {
+                    "label": "Email",
+                    "error": {
+                        "required": "Please enter your email address.",
+                        "invalid": "You entered an invalid email address."
+                    }
+                }
+            }
+        },
+        "step3": {
+            "title": "Create Password",
+            "subtitle": "Enter your password to sign up",
+            "button": "Sign Up",
+            "form": {
+                "password": {
+                    "label": "Password"
+                },
+                "confirmPassword": {
+                    "label": "Confirm Password"
+                }
+            }
+        },
+        "hasAccount": "Already have an account?",
+        "signInLink": "Sign In"
+    },
+    "forgotPassword": {
+        "step1": {
+            "title": "Reset Password",
+            "subtitle": "Enter your account email address.",
+            "button": "Send Code",
+            "form": {
+                "email": {
+                    "label": "Email",
+                    "error": {
+                        "required": "Email is required.",
+                        "invalid": "Invalid email address."
+                    }
+                }
+            }
+        },
+        "step2": {
+            "title": "Verification Code",
+            "subtitle": "Enter the code sent to your email.",
+            "button": "Verify",
+            "resendCode": "Resend Code",
+            "resendIn": "Resend in {{seconds}}s",
+            "form": {
+                "otp": {
+                    "label": "Verification Code",
+                    "error": {
+                        "required": "Please enter the code."
+                    }
+                }
+            }
+        },
+        "step3": {
+            "title": "New Password",
+            "subtitle": "Set your new password.",
+            "button": "Update Password",
+            "form": {
+                "password": {
+                    "label": "New Password",
+                    "error": {
+                        "required": "Password is required."
+                    }
+                },
+                "confirmPassword": {
+                    "label": "Confirm Password",
+                    "error": {
+                        "match": "Passwords do not match."
+                    }
+                }
+            }
+        },
+        "success": {
+            "title": "Success",
+            "message": "Your password has been updated successfully. You can now sign in.",
+            "button": "Sign In"
+        },
+        "signInLink": "Sign In"
+    }
+}

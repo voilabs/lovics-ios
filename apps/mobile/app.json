@@ -1,0 +1,59 @@
+{
+    "expo": {
+        "name": "Lovics",
+        "slug": "lovics",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "scheme": "lovics",
+        "userInterfaceStyle": "automatic",
+        "newArchEnabled": true,
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.voilabs.lovics",
+            "infoPlist": {
+                "ITSAppUsesNonExemptEncryption": false
+            }
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#FFFFFF"
+            },
+            "edgeToEdgeEnabled": true,
+            "predictiveBackGestureEnabled": false,
+            "package": "com.voilabs.lovics"
+        },
+        "web": {
+            "output": "static",
+            "favicon": "./assets/favicon.png"
+        },
+        "plugins": [
+            "expo-router",
+            "expo-video",
+            [
+                "expo-splash-screen",
+                {
+                    "backgroundColor": "#FFFFFF",
+                    "image": "./assets/splashscreen.png",
+                    "dark": {
+                        "image": "./assets/splashscreen.png",
+                        "backgroundColor": "#FFFFFF"
+                    },
+                    "imageWidth": 400
+                }
+            ]
+        ],
+        "experiments": {
+            "typedRoutes": true,
+            "reactCompiler": true
+        },
+        "extra": {
+            "router": {},
+            "eas": {
+                "projectId": "e16423a4-bfbf-4c63-afb3-9239b43a0788"
+            }
+        },
+        "owner": "voilabs"
+    }
+}
