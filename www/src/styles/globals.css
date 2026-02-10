@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+* {
+    scroll-behavior: smooth;
+}
+@layer base {
+    body {
+        @apply antialiased;
+    }
+}
+
+.container {
+    max-width: 96.5rem;
+}
