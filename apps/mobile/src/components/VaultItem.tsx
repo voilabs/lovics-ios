@@ -57,12 +57,6 @@ export const VaultItem = ({
             {item.isEncrypted && (
                 <Ionicons name="lock-closed" size={16} color="#374151" />
             )}
-            <Ionicons
-                name="heart"
-                size={20}
-                color="#ef4444"
-                style={{ marginLeft: 12 }}
-            />
         </TouchableOpacity>
     );
 };

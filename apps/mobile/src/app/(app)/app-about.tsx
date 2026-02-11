@@ -40,11 +40,11 @@ export default function AppAboutScreen() {
         },
     ];
 
-    const handlePress = async (url: string) => {
-        const supported = await Linking.canOpenURL(url);
-        if (supported) {
-            await Linking.openURL(url);
-        }
+    const handlePress = (url: string, title?: string) => {
+        router.push({
+            pathname: "/(app)/browser",
+            params: { url, title: title || "" },
+        });
     };
 
     return (
@@ -70,7 +70,7 @@ export default function AppAboutScreen() {
                         <TouchableOpacity
                             key={index}
                             className="flex-row items-center h-14 bg-white border border-background-tertiary rounded-xl px-4"
-                            onPress={() => handlePress(link.url)}
+                            onPress={() => handlePress(link.url, link.label)}
                             activeOpacity={0.7}
                         >
                             <Ionicons

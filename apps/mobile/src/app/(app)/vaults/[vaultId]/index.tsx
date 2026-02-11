@@ -149,7 +149,7 @@ export default function Page() {
                 onBack={() => router.back()}
                 rightContent={
                     <View className="flex-row items-center gap-2">
-                        {!vault?.isEncrypted && (
+                        {!isMember && (
                             <Button
                                 onPress={toggleFavorite}
                                 variant="ghost" // If this fails, will try 'ghost' or check other files.

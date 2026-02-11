@@ -42,6 +42,7 @@ export default function AppLayout() {
                     <Stack.Screen name="settings/index" />
                     <Stack.Screen name="settings/account" />
                     <Stack.Screen name="settings/security" />
+                    <Stack.Screen name="browser" />
                 </Stack>
             </KeyboardShifter>
             <Navigation />
