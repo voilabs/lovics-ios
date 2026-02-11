@@ -32,6 +32,7 @@ export const auth = betterAuth({
                     .catch(() => [null]);
 
                 let action = "Sign In";
+                if (type === "sign-in") return;
                 if (type === "email-verification")
                     action = "Email Verification";
                 if (type === "forget-password") action = "Forget Password";
@@ -41,10 +42,9 @@ export const auth = betterAuth({
                     { encoding: "utf-8" },
                 );
 
-                // 1. Önce senaryolara göre içerikleri tanımlayalım
                 const emailVariants = {
                     "email-verification": {
-                        action: "Email Verification",
+                        action: "Welcome",
                         title: `Welcome to Lovics, ${userObj?.name.replace(":", " ") || "N/A"}! 👋`,
                         body_1: "Thank you for joining us!",
                         body_2: "We’re glad you’re here. Ready to see what we’ve built for you?",
@@ -58,24 +58,19 @@ export const auth = betterAuth({
                         code: otp,
                         body_3: "If you did not request a password reset, you can safely ignore this email. Your account remains secure.",
                     },
-                    "sign-in": {
-                        action: "Sign In",
-                        title: `Hello, ${userObj?.name.replace(":", " ") || "N/A"} 👋`,
-                        body_1: "Here is your one-time verification code to sign in to your Lovics account:",
-                        body_2: "This code is valid for 10 minutes. Please do not share this code with anyone, even Lovics support.",
-                        code: otp,
-                        body_3: "If you did not attempt to sign in, please check your account security settings immediately.",
-                    },
+                    "sign-in": {},
                 };
 
                 const template = Handlebars.compile(otpFile);
 
                 resend.emails.send({
-                    from: "noreply@lovics.app",
+                    from: "Lovics <noreply@lovics.app>",
                     to: email,
-                    subject: "Your Verification Code",
+                    subject: `${emailVariants[type].action} — Lovics`,
                     html: template(
-                        emailVariants[type] || emailVariants["sign-in"],
+                        Object.assign(emailVariants[type], {
+                            year: new Date().getFullYear(),
+                        }),
                     ),
                 });
             },
