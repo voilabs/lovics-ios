@@ -30,19 +30,14 @@ export default function AppAboutScreen() {
         },
         {
             label: t("appAbout.privacyPolicy"),
-            url: "https://lovics.app/privacy",
+            url: "https://lovics.app/privacy-policy",
             icon: "lock-closed-outline",
         },
         {
             label: t("appAbout.termsOfUse"),
-            url: "https://lovics.app/terms",
+            url: "https://lovics.app/terms-of-use",
             icon: "document-text-outline",
         },
-        // {
-        //     label: "Lisanslar",
-        //     url: "https://lovics.app/licenses",
-        //     icon: "ribbon-outline",
-        // },
     ];
 
     const handlePress = async (url: string) => {

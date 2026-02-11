@@ -237,35 +237,38 @@
                 "title": "Away from Prying Eyes",
                 "subtitle": "Completely Hidden"
             }
+        },
+        "errors": {
+            "firstName": {
+                "required": "First name is required."
+            },
+            "lastName": {
+                "required": "Last name is required."
+            },
+            "email": {
+                "required": "Email is required.",
+                "invalid": "Invalid email address."
+            },
+            "password": {
+                "required": "Password is required.",
+                "min": "Password must be at least 8 characters."
+            },
+            "confirmPassword": {
+                "required": "Confirm password is required.",
+                "mismatch": "Passwords do not match."
+            }
         }
     },
     "signIn": {
         "step1": {
             "title": "We missed you!",
             "subtitle": "Ready to pick up where you left off?",
-            "button": "Continue",
-            "form": {
-                "email": {
-                    "label": "Email",
-                    "error": {
-                        "required": "Please enter your email address.",
-                        "invalid": "You entered an invalid email address."
-                    }
-                }
-            }
+            "button": "Continue"
         },
         "step2": {
             "title": "Welcome back",
             "subtitle": "Enter your password to sign in",
             "button": "Sign In",
-            "form": {
-                "password": {
-                    "label": "Password",
-                    "error": {
-                        "required": "Please enter your password."
-                    }
-                }
-            },
             "forgotPassword": "Forgot your password?"
         },
         "noAccount": "Don't have an account?",
@@ -280,16 +283,10 @@
         "step1": {
             "form": {
                 "firstName": {
-                    "label": "First Name",
-                    "error": {
-                        "required": "Please enter your first name."
-                    }
+                    "label": "First Name"
                 },
                 "lastName": {
-                    "label": "Last Name",
-                    "error": {
-                        "required": "Please enter your last name."
-                    }
+                    "label": "Last Name"
                 }
             }
         },
@@ -298,11 +295,7 @@
             "subtitle": "Enter your email address to sign up",
             "form": {
                 "email": {
-                    "label": "Email",
-                    "error": {
-                        "required": "Please enter your email address.",
-                        "invalid": "You entered an invalid email address."
-                    }
+                    "label": "Email"
                 }
             }
         },
@@ -329,11 +322,7 @@
             "button": "Send Code",
             "form": {
                 "email": {
-                    "label": "Email",
-                    "error": {
-                        "required": "Email is required.",
-                        "invalid": "Invalid email address."
-                    }
+                    "label": "Email"
                 }
             }
         },
@@ -345,10 +334,7 @@
             "resendIn": "Resend in {{seconds}}s",
             "form": {
                 "otp": {
-                    "label": "Verification Code",
-                    "error": {
-                        "required": "Please enter the code."
-                    }
+                    "label": "Verification Code"
                 }
             }
         },
@@ -358,16 +344,10 @@
             "button": "Update Password",
             "form": {
                 "password": {
-                    "label": "New Password",
-                    "error": {
-                        "required": "Password is required."
-                    }
+                    "label": "New Password"
                 },
                 "confirmPassword": {
-                    "label": "Confirm Password",
-                    "error": {
-                        "match": "Passwords do not match."
-                    }
+                    "label": "Confirm Password"
                 }
             }
         },

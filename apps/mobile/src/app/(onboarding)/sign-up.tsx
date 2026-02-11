@@ -103,6 +103,26 @@ export default function SignInScreen() {
             subtitle: t("signUp.step3.subtitle"),
             buttonText: t("signUp.step3.button"),
             onNext: async () => {
+                if (!password)
+                    return {
+                        input: "password",
+                        message: t("signUp.step3.form.password.error.required"),
+                    };
+                if (!confirmPassword)
+                    return {
+                        input: "confirmPassword",
+                        message: t(
+                            "signUp.step3.form.confirmPassword.error.required",
+                        ),
+                    };
+                if (password !== confirmPassword)
+                    return {
+                        input: "confirmPassword",
+                        message: t(
+                            "signUp.step3.form.confirmPassword.error.mismatch",
+                        ),
+                    };
+
                 const errorMessage = await handleSignUp(
                     firstName,
                     lastName,
@@ -134,7 +154,7 @@ export default function SignInScreen() {
                 },
                 {
                     label: t("signUp.step3.form.confirmPassword.label"),
-                    name: "password",
+                    name: "confirmPassword",
                     placeholder: "********",
                     value: confirmPassword,
                     onChangeText: setConfirmPassword,

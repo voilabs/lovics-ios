@@ -46,10 +46,9 @@ export const auth = betterAuth({
                     "email-verification": {
                         action: "Email Verification",
                         title: `Welcome to Lovics, ${userObj?.name.replace(":", " ") || "N/A"}! 👋`,
-                        body_1: "Thank you for joining us! To verify your email address and activate your account, please use the code below:",
-                        body_2: "This code will expire in 10 minutes.",
-                        code: otp,
-                        body_3: "If you did not create a Lovics account, please ignore this email.",
+                        body_1: "Thank you for joining us!",
+                        body_2: "We’re glad you’re here. Ready to see what we’ve built for you?",
+                        body_3: "",
                     },
                     "forget-password": {
                         action: "Reset Password",
