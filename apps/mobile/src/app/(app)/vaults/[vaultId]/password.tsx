@@ -83,7 +83,6 @@ export default function PasswordScreen() {
                             onChangeText={setPasswordInput}
                             secureTextEntry
                             variant="secondary"
-                            className="bg-content2 text-center text-lg h-14"
                             autoFocus
                         />
                     </TextField>

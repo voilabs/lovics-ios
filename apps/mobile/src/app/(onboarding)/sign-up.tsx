@@ -31,14 +31,12 @@ export default function SignInScreen() {
                 if (!firstName)
                     return {
                         input: "firstName",
-                        message: t(
-                            "signUp.step1.form.firstName.error.required",
-                        ),
+                        message: t("onboarding.errors.firstName.required"),
                     };
                 if (!lastName)
                     return {
                         input: "lastName",
-                        message: t("signUp.step1.form.lastName.error.required"),
+                        message: t("onboarding.errors.lastName.required"),
                     };
 
                 setStep(1);
@@ -106,34 +104,34 @@ export default function SignInScreen() {
                 if (!password)
                     return {
                         input: "password",
-                        message: t("signUp.step3.form.password.error.required"),
+                        message: t("onboarding.errors.password.required"),
                     };
                 if (!confirmPassword)
                     return {
                         input: "confirmPassword",
                         message: t(
-                            "signUp.step3.form.confirmPassword.error.required",
+                            "onboarding.errors.confirmPassword.required",
                         ),
                     };
                 if (password !== confirmPassword)
                     return {
                         input: "confirmPassword",
                         message: t(
-                            "signUp.step3.form.confirmPassword.error.mismatch",
+                            "onboarding.errors.confirmPassword.mismatch",
                         ),
                     };
 
-                const errorMessage = await handleSignUp(
+                const response = await handleSignUp(
                     firstName,
                     lastName,
                     email,
                     password,
                 );
 
-                if (errorMessage) {
+                if (response && response.input && response.message) {
                     return {
-                        input: "password",
-                        message: errorMessage,
+                        input: response.input,
+                        message: response.message,
                     };
                 }
             },

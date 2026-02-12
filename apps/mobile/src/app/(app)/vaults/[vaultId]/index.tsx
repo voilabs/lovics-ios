@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
     ActivityIndicator,
-    Alert,
     FlatList,
     RefreshControl,
     Text,
@@ -20,6 +19,7 @@ import {
 import { api } from "@/lib/api";
 import { Encrypter } from "@/lib/encrypter";
 import { BottomSheetContent } from "@/components/BottomSheetContent";
+import { alert } from "@/lib/alert";
 
 export default function Page() {
     const { t } = useTranslation();
@@ -94,17 +94,14 @@ export default function Page() {
 
     const handleChangePassword = async () => {
         if (!newPassword)
-            return Alert.alert(
+            return alert(
                 t("common.error"),
                 t("vaultDetail.errorPasswordEmpty"),
             );
 
         try {
             if (newPassword !== confirmPassword) {
-                return Alert.alert(
-                    t("common.error"),
-                    t("vaultDetail.errorMismatch"),
-                );
+                return alert(t("common.error"), t("vaultDetail.errorMismatch"));
             }
             setIsChangingPassword(true);
             const unlocked = Encrypter.fromMasterKey(masterKey);
@@ -123,19 +120,19 @@ export default function Page() {
                 .catch((err) => err.response?.data);
 
             if (!response?.success) {
-                Alert.alert(
+                alert(
                     t("common.error"),
                     response?.message || t("vaultPassword.errorFailed"),
                 );
                 return;
             }
 
-            Alert.alert(t("common.success"), t("vaultDetail.successUpdated"));
+            alert(t("common.success"), t("vaultDetail.successUpdated"));
             setNewPassword("");
             lockVault();
         } catch (e) {
             console.error("Şifre değiştirme hatası:", e);
-            Alert.alert(t("common.error"), t("favorites.genericError"));
+            alert(t("common.error"), t("favorites.genericError"));
         } finally {
             setIsChangingPassword(false);
             setIsPasswordSheetOpen(false);

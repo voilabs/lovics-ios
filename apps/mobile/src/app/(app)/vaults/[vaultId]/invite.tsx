@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
     View,
-    Alert,
     TextInput,
     Text,
     Share,
@@ -20,6 +19,7 @@ import { Avatar, Button, Input } from "heroui-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "@/context/auth-context";
 import { useTranslation } from "react-i18next";
+import { alert } from "@/lib/alert";
 
 export default function InviteMemberScreen() {
     const { t } = useTranslation();
@@ -57,27 +57,24 @@ export default function InviteMemberScreen() {
 
     const handleInvite = async () => {
         if (!email)
-            return Alert.alert(
+            return alert(
                 t("common.error"),
                 t("vaultInvite.errorEmailRequired"),
             );
 
         if (isEncrypted) {
             if (!invitePassword)
-                return Alert.alert(
+                return alert(
                     t("common.error"),
                     t("vaultInvite.errorPasswordRequired"),
                 );
             if (invitePassword.length < 6)
-                return Alert.alert(
+                return alert(
                     t("common.error"),
                     t("vaultInvite.errorPasswordLength"),
                 );
             if (!masterKey)
-                return Alert.alert(
-                    t("common.error"),
-                    t("vaultInvite.errorLocked"),
-                );
+                return alert(t("common.error"), t("vaultInvite.errorLocked"));
         }
 
         setIsLoading(true);
@@ -104,7 +101,7 @@ export default function InviteMemberScreen() {
 
             // 4. Kullanıcıyı bilgilendir
             if (isEncrypted) {
-                Alert.alert(
+                alert(
                     t("vaultInvite.inviteSentTitle"),
                     t("vaultInvite.inviteSentEncryptedBody", {
                         password: invitePassword,
@@ -112,29 +109,36 @@ export default function InviteMemberScreen() {
                     [
                         {
                             text: t("vaultInvite.sharePasswordButton"),
-                            onPress: () => {
+                            onPress: (setIsOpen) => {
                                 Share.share({
                                     message: t("vaultInvite.shareMessage", {
                                         password: invitePassword,
                                     }),
                                 });
+                                setIsOpen(false);
                                 fetchMembers();
                             },
                         },
                         {
                             text: t("vaultInvite.okButton") || t("common.ok"),
-                            onPress: () => fetchMembers(),
+                            onPress: (setIsOpen) => {
+                                setIsOpen(false);
+                                fetchMembers();
+                            },
                         },
                     ],
                 );
             } else {
-                Alert.alert(
+                alert(
                     t("vaultInvite.inviteSentTitle"),
                     t("vaultInvite.inviteSentBody"),
                     [
                         {
                             text: t("vaultInvite.okButton") || t("common.ok"),
-                            onPress: () => fetchMembers(),
+                            onPress: (setIsOpen) => {
+                                setIsOpen(false);
+                                fetchMembers();
+                            },
                         },
                     ],
                 );
@@ -143,7 +147,7 @@ export default function InviteMemberScreen() {
             setInvitePassword("");
         } catch (error: any) {
             console.error(error);
-            Alert.alert(
+            alert(
                 t("common.error"),
                 error.response?.data?.message || error.message,
             );
@@ -153,31 +157,37 @@ export default function InviteMemberScreen() {
     };
 
     const handleRemoveMember = (member: any) => {
-        Alert.alert(
+        alert(
             t("vaultInvite.removeMemberTitle"),
             t("vaultInvite.removeMemberConfirm", { name: member.name }),
             [
-                { text: t("common.cancel"), style: "cancel" },
+                {
+                    text: t("common.cancel"),
+                    variant: "secondary",
+                    onPress: (setIsOpen) => setIsOpen(false),
+                },
                 {
                     text: t("common.remove"),
-                    style: "destructive",
-                    onPress: async () => {
+                    variant: "danger-soft",
+                    onPress: async (setIsOpen) => {
                         try {
                             const res = await api.delete(
                                 `/vaults/${vaultId}/members/${member.id}`,
                             );
+                            setIsOpen(false);
                             if (res.data?.success) {
                                 setMembers((prev) =>
                                     prev.filter((m) => m.id !== member.id),
                                 );
                             } else {
-                                Alert.alert(
+                                alert(
                                     t("common.error"),
                                     "Kullanıcı çıkarılamadı.",
                                 );
                             }
                         } catch (error: any) {
-                            Alert.alert(
+                            setIsOpen(false);
+                            alert(
                                 t("common.error"),
                                 error.response?.data?.message ||
                                     "Bir hata oluştu",
@@ -271,7 +281,7 @@ export default function InviteMemberScreen() {
                                         </Avatar>
                                         <View className="flex-1">
                                             <Text className="font-medium text-gray-900">
-                                                {member.name}{" "}
+                                                {member.name.replace(":", " ")}{" "}
                                                 {member.id === user?.id &&
                                                     t("vaultInvite.youSuffix")}
                                             </Text>

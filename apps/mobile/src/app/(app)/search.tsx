@@ -109,7 +109,7 @@ export default function Search() {
                         <TextField className="space-y-1">
                             <View>
                                 <Input
-                                    className="rounded-full h-12 py-2 px-12 text-base shadow-sm"
+                                    className="rounded-full pl-12"
                                     placeholder={t("search.placeholder")}
                                     placeholderTextColor="#9ca3af"
                                     value={searchQuery}
@@ -196,8 +196,9 @@ export default function Search() {
                                         {t("search.noResults")}
                                     </Text>
                                     <Text className="text-muted-foreground text-center mt-1">
-                                        "{searchQuery}" ile eşleşen sonuç
-                                        bulunamadı.
+                                        {t("search.noResultsText", {
+                                            query: searchQuery,
+                                        })}
                                     </Text>
                                 </View>
                             ) : (

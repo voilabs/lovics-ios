@@ -18,24 +18,27 @@ import Constants from "expo-constants";
 import splashScreen from "@/../assets/splashscreen.png";
 
 export default function AppAboutScreen() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const locale = i18n.language;
     const router = useRouter();
     const version = Constants.expoConfig?.version || "1.0.0";
 
+    const SITE_DOMAIN =
+        locale === "tr" ? "https://lovics.app" : "https://lovics.app/en";
     const links = [
         {
             label: t("appAbout.website"),
-            url: "https://lovics.app",
+            url: `${SITE_DOMAIN}`,
             icon: "globe-outline",
         },
         {
             label: t("appAbout.privacyPolicy"),
-            url: "https://lovics.app/privacy-policy",
+            url: `${SITE_DOMAIN}/privacy-policy?in_app=true`,
             icon: "lock-closed-outline",
         },
         {
             label: t("appAbout.termsOfUse"),
-            url: "https://lovics.app/terms-of-use",
+            url: `${SITE_DOMAIN}/terms-of-use?in_app=true`,
             icon: "document-text-outline",
         },
     ];

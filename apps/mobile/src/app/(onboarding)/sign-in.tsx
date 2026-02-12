@@ -35,7 +35,7 @@ export default function SignInScreen() {
                 if (!emailRegex.test(email)) {
                     return {
                         input: "email",
-                        message: t("signIn.step1.form.email.error.invalid"),
+                        message: t("onboarding.errors.email.invalid"),
                     };
                 }
                 setStep(1);
@@ -62,7 +62,7 @@ export default function SignInScreen() {
                 if (!password)
                     return {
                         input: "password",
-                        message: t("signIn.step2.form.password.error.required"),
+                        message: t("onboarding.errors.password.required"),
                     };
                 const errorMessage = await handleSignIn(email, password);
                 if (errorMessage) {

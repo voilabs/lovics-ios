@@ -1,61 +1,68 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-    Animated,
-    Keyboard,
-    Platform,
-    StyleSheet,
-    View,
-    Dimensions,
-} from "react-native";
+import React, { useEffect } from "react";
+import { Keyboard, Platform, TextInput } from "react-native";
+import Animated, {
+    Easing,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
+} from "react-native-reanimated";
 
 export const KeyboardShifter = ({
     children,
-    offset = 0,
+    offset = 20,
 }: {
     children: React.ReactNode;
     offset?: number;
 }) => {
-    // Klavyenin yüksekliğini animasyonlu bir şekilde tutuyoruz
-    const shift = useRef(new Animated.Value(0)).current;
+    const shift = useSharedValue(0);
 
     useEffect(() => {
-        // Klavye açılma ve kapanma olaylarını dinliyoruz
         const showEvent =
             Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
         const hideEvent =
             Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
 
-        const showSubscription = Keyboard.addListener(showEvent, (event) => {
-            Animated.timing(shift, {
-                toValue: Math.max(0, event.endCoordinates.height - offset),
-                duration: 250, // Klavye animasyonuyla uyumlu süre
-                useNativeDriver: false, // Layout (padding) etkilediği için false olmalı
-            }).start();
+        const showSubscription = Keyboard.addListener(showEvent, (e) => {
+            const currentlyFocusedInput =
+                TextInput.State.currentlyFocusedInput();
+
+            if (!currentlyFocusedInput) return;
+
+            currentlyFocusedInput.measureInWindow((x, y, width, height) => {
+                const inputBottom = y + height;
+                const keyboardTop = e.endCoordinates.screenY;
+
+                if (inputBottom > keyboardTop - offset) {
+                    const totalShift = inputBottom - keyboardTop + offset;
+
+                    shift.value = withTiming(-totalShift, {
+                        duration: Platform.OS === "ios" ? e.duration : 250,
+                        easing: Easing.out(Easing.exp),
+                    });
+                }
+            });
         });
 
-        const hideSubscription = Keyboard.addListener(hideEvent, () => {
-            Animated.timing(shift, {
-                toValue: 0,
-                duration: 250,
-                useNativeDriver: false,
-            }).start();
+        const hideSubscription = Keyboard.addListener(hideEvent, (e) => {
+            shift.value = withTiming(0, {
+                duration: Platform.OS === "ios" ? e.duration : 250,
+                easing: Easing.out(Easing.exp),
+            });
         });
 
         return () => {
             showSubscription.remove();
             hideSubscription.remove();
         };
-    }, [shift, offset]);
+    }, [offset]);
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{ translateY: shift.value }],
+    }));
 
     return (
-        <Animated.View style={[styles.container, { paddingBottom: shift }]}>
+        <Animated.View style={[{ flex: 1 }, animatedStyle]}>
             {children}
         </Animated.View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});

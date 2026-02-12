@@ -93,6 +93,19 @@ export default function StepForm({
             if (typeof result === "object") {
                 setError(result);
                 setIsLoading(false);
+
+                const currentStepHasInput = activeStep.fields?.some(
+                    (f) => f.name === result.input,
+                );
+
+                if (!currentStepHasInput) {
+                    const stepIndex = steps.findIndex((s) =>
+                        s.fields?.some((f) => f.name === result.input),
+                    );
+                    if (stepIndex !== -1 && stepIndex !== currentStep) {
+                        onStepChange(stepIndex);
+                    }
+                }
             } else if (result === false) {
                 setIsLoading(false);
             } else {
@@ -108,7 +121,12 @@ export default function StepForm({
 
     useEffect(() => {
         if (error) {
-            setError(null);
+            const currentStepHasInput = steps[currentStep]?.fields?.some(
+                (f) => f.name === error.input,
+            );
+            if (!currentStepHasInput) {
+                setError(null);
+            }
         }
     }, [currentStep]);
 
@@ -134,10 +152,18 @@ export default function StepForm({
                 </Text>
             </View>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                className="flex-1"
-            >
+            <View className="flex-row gap-2 px-4 mt-6 mb-2 z-20">
+                {steps.map((_, index) => (
+                    <View
+                        key={`step-indicator-${index}`}
+                        className={`h-1 flex-1 rounded-full ${
+                            index <= currentStep ? "bg-white" : "bg-white/20"
+                        }`}
+                    />
+                ))}
+            </View>
+
+            <View className="flex-1">
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
@@ -150,14 +176,14 @@ export default function StepForm({
                         <View className="items-start mb-6">
                             <Animated.Text
                                 key={`title-${currentStep}`}
-                                entering={FadeInDown.duration(300)}
+                                entering={FadeInDown.duration(200)}
                                 className="text-3xl font-bold text-foreground mb-1"
                             >
                                 {activeStep.title}
                             </Animated.Text>
                             <Animated.Text
                                 key={`sub-${currentStep}`}
-                                entering={FadeInDown.duration(300).delay(100)}
+                                entering={FadeInDown.duration(200).delay(50)}
                                 className="text-muted text-base"
                             >
                                 {activeStep.subtitle}
@@ -167,8 +193,8 @@ export default function StepForm({
                         <View className="min-h-0h-32 justify-center">
                             {/* Increased height slightly to accommodate error message */}
                             <Animated.View
-                                entering={FadeInRight}
-                                exiting={FadeOutLeft}
+                                entering={FadeInRight.duration(200)}
+                                exiting={FadeOutLeft.duration(150)}
                                 key={`content-${currentStep}`}
                                 className="w-full"
                             >
@@ -191,7 +217,6 @@ export default function StepForm({
                                                     )}
                                                     <View>
                                                         <Input
-                                                            className="rounded-full h-14 px-12 text-base shadow-sm"
                                                             placeholder={
                                                                 field.placeholder
                                                             }
@@ -253,7 +278,7 @@ export default function StepForm({
                         </View>
 
                         {activeStep.footer && (
-                            <Animated.View entering={FadeInDown}>
+                            <Animated.View entering={FadeInDown.duration(200)}>
                                 {activeStep.footer}
                             </Animated.View>
                         )}
@@ -283,7 +308,7 @@ export default function StepForm({
                         </View>
                     )}
                 </ScrollView>
-            </KeyboardAvoidingView>
+            </View>
         </Container>
     );
 }

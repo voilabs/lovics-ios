@@ -12,32 +12,41 @@ import "../global.css";
 import RootedDevice from "../components/RootedDevice";
 import { useSecurity } from "@/hooks/use-security";
 import { KeyboardShifter } from "@/components/KeyboardShifter";
+import { useDoubleBackToExit } from "@/hooks/use-double-back-to-exit";
+import { AlertProvider } from "@/context/alert-context";
+import AlertConnector from "@/components/AlertConnector";
 
 function AppLayout() {
     const backgroundColor = useThemeColor("background");
     const { blueView } = useSecurity();
+    useDoubleBackToExit();
 
     return (
-        <APIController>
-            <AuthController>
-                <Stack
-                    screenOptions={{
-                        headerShown: false,
-                        contentStyle: {
-                            backgroundColor,
-                        },
-                    }}
-                    initialRouteName="(onboarding)/index"
-                >
-                    <Stack.Screen name="(onboarding)/index" />
-                    <Stack.Screen name="(onboarding)/sign-in" />
-                    <Stack.Screen name="(onboarding)/sign-up" />
-                    <Stack.Screen name="(onboarding)/forgot-password" />
-                    <Stack.Screen name="(app)" />
-                </Stack>
-                {blueView}
-            </AuthController>
-        </APIController>
+        <AlertProvider>
+            <AlertConnector />
+            <APIController>
+                <AuthController>
+                    <KeyboardShifter>
+                        <Stack
+                            screenOptions={{
+                                headerShown: false,
+                                contentStyle: {
+                                    backgroundColor,
+                                },
+                            }}
+                            initialRouteName="(onboarding)/index"
+                        >
+                            <Stack.Screen name="(onboarding)/index" />
+                            <Stack.Screen name="(onboarding)/sign-in" />
+                            <Stack.Screen name="(onboarding)/sign-up" />
+                            <Stack.Screen name="(onboarding)/forgot-password" />
+                            <Stack.Screen name="(app)" />
+                        </Stack>
+                    </KeyboardShifter>
+                    {blueView}
+                </AuthController>
+            </APIController>
+        </AlertProvider>
     );
 }
 

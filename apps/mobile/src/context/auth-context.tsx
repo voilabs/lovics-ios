@@ -1,8 +1,9 @@
 import { User } from "better-auth";
 import { useRouter } from "expo-router";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { authClient } from "../lib/auth-client";
 import { Encrypter } from "../lib/encrypter"; // Encrypter'ı import ettik
+import { useTranslation } from "react-i18next";
 
 type AuthContextType = {
     user: User | null;
@@ -13,7 +14,7 @@ type AuthContextType = {
         lastName: string,
         email: string,
         password: string,
-    ) => Promise<string | void>;
+    ) => Promise<{ input: string; message: string } | void>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
@@ -32,6 +33,7 @@ export const AuthContextProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
+    const { t } = useTranslation();
     const {
         data: user,
         isPending,
@@ -47,7 +49,7 @@ export const AuthContextProvider = ({
             password,
         });
 
-        if (error) return error.code;
+        if (error) return t(`onboarding.errors.${error.code || "UNKNOWN"}`);
 
         if (data) router.replace("/(app)");
     };
@@ -65,25 +67,40 @@ export const AuthContextProvider = ({
                 password,
             } as any);
 
-            if (error) return error.code || error.message;
+            const fieldBasedErrors = {
+                email: ["USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"],
+                password: ["PASSWORD_TOO_SHORT"],
+            };
+
+            const detectedField = Object.keys(fieldBasedErrors).find((key) =>
+                fieldBasedErrors[key as keyof typeof fieldBasedErrors].includes(
+                    error.code,
+                ),
+            );
+
+            if (error)
+                return {
+                    input: detectedField || "",
+                    message: t(`onboarding.errors.${error.code || "UNKNOWN"}`),
+                };
 
             if (data) router.replace("/(app)");
         } catch (e) {
             console.error("Sign up crypto error:", e);
-            return "ENCRYPTION_ERROR";
+            return {
+                input: "",
+                message: t("onboarding.errors.UNKNOWN"),
+            };
         }
     };
 
-    return (
-        <AuthContext.Provider
-            value={{
-                user: user?.user || null,
-                isLoading: isPending || isRefetching,
-                handleSignIn,
-                handleSignUp,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
-    );
+    const data = useMemo(() => {
+        return {
+            user: user?.user || null,
+            isLoading: isPending || isRefetching,
+            handleSignIn,
+            handleSignUp,
+        };
+    }, [user, isPending, isRefetching, handleSignIn, handleSignUp]);
+    return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };

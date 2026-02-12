@@ -275,7 +275,7 @@ export const VaultContextProvider = ({
                     setMasterKey(null);
                     clearSensitiveCache();
                     refetch("vault");
-                    router.replace(`/vaults/${vaultId}/password`);
+                    router.replace(`/`);
                 },
                 getNextPageOfContents,
                 hasMore,

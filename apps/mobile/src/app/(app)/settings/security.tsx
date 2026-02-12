@@ -5,7 +5,8 @@ import { useRouter } from "expo-router";
 import { Button, Input, TextField } from "heroui-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { alert } from "@/lib/alert";
 
 export default function SecuritySettingsScreen() {
     const { t } = useTranslation();
@@ -17,21 +18,21 @@ export default function SecuritySettingsScreen() {
 
     const handleSave = async () => {
         if (!currentPassword || !newPassword || !confirmPassword) {
-            return Alert.alert(
+            return alert(
                 t("common.error"),
                 t("settingsSecurity.errorAllFields"),
             );
         }
 
         if (newPassword.length < 8) {
-            return Alert.alert(
+            return alert(
                 t("common.error"),
                 t("settingsSecurity.errorPasswordLength"),
             );
         }
 
         if (newPassword !== confirmPassword) {
-            return Alert.alert(
+            return alert(
                 t("common.error"),
                 t("settingsSecurity.errorMismatch"),
             );
@@ -46,12 +47,12 @@ export default function SecuritySettingsScreen() {
             });
 
             if (error) {
-                Alert.alert(
+                alert(
                     t("common.error"),
                     error.message || t("settingsSecurity.errorFailed"),
                 );
             } else {
-                Alert.alert(
+                alert(
                     t("common.success"),
                     t("settingsSecurity.successUpdated"),
                 );
@@ -59,7 +60,7 @@ export default function SecuritySettingsScreen() {
             }
         } catch (e) {
             console.error(e);
-            Alert.alert(t("common.error"), t("favorites.genericError"));
+            alert(t("common.error"), t("favorites.genericError"));
         } finally {
             setIsLoading(false);
         }
@@ -86,7 +87,6 @@ export default function SecuritySettingsScreen() {
                                 value={currentPassword}
                                 onChangeText={setCurrentPassword}
                                 secureTextEntry
-                                className="h-12 flex items-center px-4"
                                 variant="secondary"
                             />
                         </TextField>
@@ -104,7 +104,6 @@ export default function SecuritySettingsScreen() {
                                 value={newPassword}
                                 onChangeText={setNewPassword}
                                 secureTextEntry
-                                className="h-12 flex items-center px-4"
                                 variant="secondary"
                             />
                         </TextField>
@@ -122,7 +121,6 @@ export default function SecuritySettingsScreen() {
                                 value={confirmPassword}
                                 onChangeText={setConfirmPassword}
                                 secureTextEntry
-                                className="h-12 flex items-center px-4"
                                 variant="secondary"
                             />
                         </TextField>

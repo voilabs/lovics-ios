@@ -21,30 +21,27 @@ export default function AppLayout() {
     return (
         <>
             <StatusBar style="dark" />
-
-            <KeyboardShifter>
-                <Stack
-                    screenOptions={{
-                        headerShown: false,
-                        contentStyle: {
-                            backgroundColor,
-                            marginBottom: 80,
-                        },
-                    }}
-                    initialRouteName="index"
-                >
-                    <Stack.Screen name="index" />
-                    <Stack.Screen name="favorites" />
-                    <Stack.Screen name="profile" />
-                    <Stack.Screen name="search" />
-                    <Stack.Screen name="new-vault" />
-                    <Stack.Screen name="app-about" />
-                    <Stack.Screen name="settings/index" />
-                    <Stack.Screen name="settings/account" />
-                    <Stack.Screen name="settings/security" />
-                    <Stack.Screen name="browser" />
-                </Stack>
-            </KeyboardShifter>
+            <Stack
+                screenOptions={{
+                    headerShown: false,
+                    contentStyle: {
+                        backgroundColor,
+                        marginBottom: 80,
+                    },
+                }}
+                initialRouteName="index"
+            >
+                <Stack.Screen name="index" />
+                <Stack.Screen name="favorites" />
+                <Stack.Screen name="profile" />
+                <Stack.Screen name="search" />
+                <Stack.Screen name="new-vault" />
+                <Stack.Screen name="app-about" />
+                <Stack.Screen name="settings/index" />
+                <Stack.Screen name="settings/account" />
+                <Stack.Screen name="settings/security" />
+                <Stack.Screen name="browser" />
+            </Stack>
             <Navigation />
         </>
     );
@@ -98,9 +95,10 @@ function Navigation() {
                     <TouchableOpacity
                         key={item.href}
                         activeOpacity={0.7}
-                        onPress={() =>
-                            router.push(("/(app)" + item.href) as any)
-                        }
+                        onPress={() => {
+                            if (active) return;
+                            router.push(("/(app)" + item.href) as any);
+                        }}
                         className="items-center justify-center gap-1"
                     >
                         <Ionicons

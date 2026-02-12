@@ -10,12 +10,12 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
     ActivityIndicator,
-    Alert,
     ScrollView,
     Text,
     TouchableOpacity,
     View,
 } from "react-native";
+import { alert } from "@/lib/alert";
 
 export default function SettingsScreen() {
     const { t } = useTranslation();
@@ -120,7 +120,7 @@ export default function SettingsScreen() {
                 .catch((error) => error.response?.data);
 
             if (!response?.success) {
-                Alert.alert(
+                alert(
                     t("common.error"),
                     response?.message || t("vaultSettings.updateError"),
                 );
@@ -128,25 +128,29 @@ export default function SettingsScreen() {
             }
 
             await refetch("vault");
-            Alert.alert(t("common.success"), t("vaultSettings.successUpdated"));
+            alert(t("common.success"), t("vaultSettings.successUpdated"));
         } catch (e) {
             console.error("Güncelleme hatası:", e);
-            Alert.alert(t("common.error"), t("favorites.genericError"));
+            alert(t("common.error"), t("favorites.genericError"));
         } finally {
             setIsLoading(false);
         }
     };
 
     const handleDeleteVault = () => {
-        Alert.alert(
+        alert(
             t("vaultSettings.deleteTitle"),
             t("vaultSettings.deleteConfirm"),
             [
-                { text: t("common.cancel"), style: "cancel" },
+                {
+                    text: t("common.cancel"),
+                    variant: "secondary",
+                    onPress: (setIsOpen) => setIsOpen(false),
+                },
                 {
                     text: t("vaultSettings.delete"),
-                    style: "destructive",
-                    onPress: async () => {
+                    variant: "danger-soft",
+                    onPress: async (setIsOpen) => {
                         try {
                             setIsLoading(true);
                             const response = await api
@@ -155,17 +159,18 @@ export default function SettingsScreen() {
                                 .catch((err) => err.response?.data);
 
                             if (!response?.success) {
-                                Alert.alert(
+                                alert(
                                     t("common.error"),
                                     response?.message ||
                                         t("vaultSettings.deleteError"),
                                 );
                                 return;
                             }
+                            setIsOpen(false);
                             router.replace("/(app)");
                         } catch (e) {
                             console.error("Silme hatası:", e);
-                            Alert.alert(
+                            alert(
                                 t("common.error"),
                                 t("favorites.genericError"),
                             );

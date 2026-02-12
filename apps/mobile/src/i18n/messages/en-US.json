@@ -21,7 +21,18 @@
         "cancel": "Cancel",
         "delete": "Delete",
         "remove": "Remove",
-        "ok": "OK"
+        "ok": "OK",
+        "exitAppTitle": "Exit App",
+        "exitAppMessage": "Are you sure you want to exit the app?",
+        "exit": "Exit App"
+    },
+    "vaults": {
+        "item": {
+            "deleteError": "Error deleting vault: {{msg}}",
+            "alt": "Vault",
+            "title": "Vault",
+            "selected": "{{count}} selected"
+        }
     },
     "navigation": {
         "home": "Home",
@@ -49,7 +60,9 @@
         "emptyDescription": "You can click the button below to create a vault.",
         "createFirstVault": "Create Your First Vault"
     },
+
     "newVault": {
+        "errorTitle": "An Error Occurred",
         "errorNameRequired": "Please enter a vault name.",
         "errorPasswordLength": "Vault password must be at least 6 characters.",
         "errorPasswordMismatch": "Passwords do not match.",
@@ -83,7 +96,8 @@
         "searching": "Searching...",
         "noResults": "No results found",
         "placeholder": "Search vaults and media",
-        "startSearching": "Type above to start searching"
+        "startSearching": "Type above to start searching",
+        "noResultsText": "No results for \"{{query}}\""
     },
     "settingsAccount": {
         "errorNameRequired": "Name field cannot be empty.",
@@ -160,7 +174,7 @@
         "emailPlaceholder": "User Email",
         "passwordPlaceholder": "Set Password for this Invite",
         "sendButton": "Send Invite",
-        "membersSectionTitle": "Members ({count})",
+        "membersSectionTitle": "Members",
         "youSuffix": "(You)",
         "ownerBadge": "Owner"
     },
@@ -239,6 +253,10 @@
             }
         },
         "errors": {
+            "UNKNOWN": "An unknown error occurred. We are working on it, please try again later.",
+            "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password.",
+            "PASSWORD_TOO_SHORT": "Password must be at least 8 characters.",
+            "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "User already exists. Please use another email.",
             "firstName": {
                 "required": "First name is required."
             },

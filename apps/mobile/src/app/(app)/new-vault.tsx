@@ -13,7 +13,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
     ActivityIndicator,
-    Alert,
     Platform,
     ScrollView,
     Text,
@@ -23,6 +22,7 @@ import {
 import Container from "@/components/Container";
 import Header from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
+import { alert } from "@/lib/alert";
 
 const COLORS = [
     "#3B82F6", // Blue
@@ -69,16 +69,22 @@ export default function NewVaultScreen() {
 
     const handleCreate = async () => {
         if (!title.trim()) {
-            return Alert.alert("Hata", t("newVault.errorNameRequired"));
+            return alert(t("common.error"), t("newVault.errorNameRequired"));
         }
 
         // Şifre kontrolü
         if (isEncrypted) {
             if (vaultPassword.length < 6) {
-                return Alert.alert("Hata", t("newVault.errorPasswordLength"));
+                return alert(
+                    t("common.error"),
+                    t("newVault.errorPasswordLength"),
+                );
             }
             if (vaultPassword !== confirmVaultPassword) {
-                return Alert.alert("Hata", t("newVault.errorPasswordMismatch"));
+                return alert(
+                    t("common.error"),
+                    t("newVault.errorPasswordMismatch"),
+                );
             }
         }
 
@@ -120,7 +126,7 @@ export default function NewVaultScreen() {
             console.error(error);
             const msg =
                 error.response?.data?.message || t("newVault.createError");
-            Alert.alert("Hata", msg);
+            alert(t("common.error"), msg);
         } finally {
             setIsLoading(false);
         }
@@ -163,7 +169,6 @@ export default function NewVaultScreen() {
                                 placeholder={t("newVault.vaultNamePlaceholder")}
                                 value={title}
                                 onChangeText={setTitle}
-                                className="h-12 flex items-center px-4"
                                 variant="secondary"
                             />
                         </TextField>
@@ -292,7 +297,6 @@ export default function NewVaultScreen() {
                                         value={vaultPassword}
                                         onChangeText={setVaultPassword}
                                         secureTextEntry
-                                        className="bg-background h-12"
                                     />
                                 </TextField>
                             </View>
@@ -308,7 +312,6 @@ export default function NewVaultScreen() {
                                         value={confirmVaultPassword}
                                         onChangeText={setConfirmVaultPassword}
                                         secureTextEntry
-                                        className="bg-background h-12"
                                     />
                                 </TextField>
                             </View>

@@ -2,8 +2,8 @@
     "_layout": {
         "albums": "Albümlerim",
         "explore": "Keşfet",
-        "favorites": "Favorilerim",
-        "profile": "Hesabım"
+        "favorites": "Favoriler",
+        "profile": "Profil"
     },
     "appAbout": {
         "title": "Hakkında",
@@ -11,7 +11,7 @@
         "privacyPolicy": "Gizlilik Politikası",
         "termsOfUse": "Kullanım Koşulları",
         "appName": "Lovics",
-        "versionPrefix": "Versiyon",
+        "versionPrefix": "Sürüm",
         "copyright": "© {{year}} Lovics. Tüm hakları saklıdır."
     },
     "common": {
@@ -20,37 +20,48 @@
         "saved": "Kaydedildi",
         "cancel": "İptal",
         "delete": "Sil",
-        "remove": "Çıkar",
-        "ok": "Tamam"
+        "remove": "Kaldır",
+        "ok": "Tamam",
+        "exitAppTitle": "Uygulamadan Çık",
+        "exitAppMessage": "Uygulamadan çıkmak istediğinize emin misiniz?",
+        "exit": "Çıkış Yap"
+    },
+    "vaults": {
+        "item": {
+            "deleteError": "Kasa silinirken hata oluştu: {{msg}}",
+            "alt": "Kasa",
+            "title": "Kasa",
+            "selected": "{{count}} seçildi"
+        }
     },
     "navigation": {
-        "home": "Anasayfa",
+        "home": "Ana Sayfa",
         "search": "Ara",
         "history": "Geçmiş",
         "profile": "Profil"
     },
-
     "favorites": {
         "subtitle": "Favori Kasalarım",
         "fetchError": "Favoriler yüklenirken bir sorun oluştu.",
         "genericError": "Bir hata oluştu.",
         "retry": "Tekrar Dene",
         "emptyTitle": "Henüz favori kasanız yok.",
-        "emptyDescription": "Kasalarınızı favorilere ekleyerek buradan hızlıca erişebilirsiniz.",
+        "emptyDescription": "Hızlı erişim için kasalarınızı favorilerinize ekleyin.",
         "exploreVaults": "Kasaları Keşfet"
     },
     "home": {
-        "welcomeBack": "Tekrar hoşgeldin, {{name}}",
+        "welcomeBack": "Tekrar hoş geldin, {{name}}",
         "myVaults": "Kasalarım",
         "newVault": "Yeni Kasa",
         "errorTitle": "Bir Hata Oluştu",
         "retry": "Tekrar Dene",
-        "emptyTitle": "Henüz kasanız yok.",
-        "emptyDescription": "Kasa oluşturmak için aşağıdaki butona tıklayabilirsin.",
+        "emptyTitle": "Henüz bir kasanız yok.",
+        "emptyDescription": "Aşağıdaki butona tıklayarak ilk kasanızı oluşturabilirsiniz.",
         "createFirstVault": "İlk Kasanı Oluştur"
     },
     "newVault": {
-        "errorNameRequired": "Lütfen kasa adı girin.",
+        "errorTitle": "Bir Hata Oluştu",
+        "errorNameRequired": "Lütfen bir kasa adı girin.",
         "errorPasswordLength": "Kasa şifresi en az 6 karakter olmalıdır.",
         "errorPasswordMismatch": "Şifreler eşleşmiyor.",
         "createError": "Kasa oluşturulurken bir hata oluştu.",
@@ -59,40 +70,41 @@
         "vaultNamePlaceholder": "Örn: Kişisel Belgelerim",
         "colorLabel": "Renk",
         "iconLabel": "İkon",
-        "themeLabel": "Arkaplan Teması",
+        "themeLabel": "Arka Plan Teması",
         "encryptionTitle": "Şifreleme",
-        "encryptionDescription": "Kasa içeriğini uçtan uca şifrele. Şifreyi unutursan verilerin kurtarılamaz.",
+        "encryptionDescription": "Kasa içeriğini uçtan uca şifreleyin. Şifreyi kaybederseniz verilere erişilemez.",
         "vaultPasswordLabel": "Kasa Şifresi",
-        "vaultPasswordPlaceholder": "Şifre belirleyin",
-        "confirmPasswordLabel": "Şifre Tekrar",
+        "vaultPasswordPlaceholder": "Bir şifre belirleyin",
+        "confirmPasswordLabel": "Şifreyi Onayla",
         "confirmPasswordPlaceholder": "Şifreyi tekrar girin",
-        "encryptionWarning": "Bu şifreyi sunucularımızda saklamıyoruz. Unutursanız dosyalarınızı açamazsınız.",
+        "encryptionWarning": "Bu şifreyi sunucularımızda saklamıyoruz. Eğer unutursanız dosyalarınızı açamazsınız.",
         "createButton": "Oluştur"
     },
     "profile": {
         "accountSection": "Hesap",
         "settingsItem": "Ayarlar",
-        "signOutItem": "Çıkış Yap",
+        "signOutItem": "Oturumu Kapat",
         "appSection": "Uygulama",
         "aboutItem": "Hakkında",
         "subtitle": "Profilini yönet"
     },
     "search": {
-        "subtitle": "Kasa ve medya ara",
-        "label": "Arama Yap",
+        "subtitle": "Kasaları ve medyaları ara",
+        "label": "Ara",
         "searching": "Aranıyor...",
         "noResults": "Sonuç bulunamadı",
         "placeholder": "Kasa ve medya ara",
-        "startSearching": "Arama yapmak için yukarıya bir şeyler yazın"
+        "startSearching": "Aramaya başlamak için yazmaya başlayın",
+        "noResultsText": "\"{{query}}\" için sonuç bulunamadı."
     },
     "settingsAccount": {
-        "errorNameRequired": "İsim alanı boş olamaz.",
+        "errorNameRequired": "İsim alanı boş bırakılamaz.",
         "successUpdated": "Hesap bilgileri güncellendi.",
         "title": "Hesap Bilgileri",
         "firstNameLabel": "Ad",
-        "firstNamePlaceholder": "Adın",
+        "firstNamePlaceholder": "Adınız",
         "lastNameLabel": "Soyad",
-        "lastNamePlaceholder": "Soyadın",
+        "lastNamePlaceholder": "Soyadınız",
         "emailLabel": "E-posta",
         "emailWarning": "E-posta adresi değiştirilemez.",
         "saveButton": "Kaydet"
@@ -121,61 +133,61 @@
     "vaultDetail": {
         "errorPasswordEmpty": "Yeni şifre boş olamaz.",
         "errorMismatch": "Şifreler eşleşmiyor.",
-        "errorLocked": "Kasa kilitli, şifre değiştirilemez.",
+        "errorLocked": "Kasa kilitli olduğu için şifre değiştirilemez.",
         "successUpdated": "Şifre başarıyla güncellendi.",
         "optionsTitle": "Seçenekler",
         "lockVault": "Kasayı Kilitle",
-        "changePassword": "Şifre Değiştir",
+        "changePassword": "Şifreyi Değiştir",
         "setNewPasswordTitle": "Yeni Şifre Belirle",
-        "passwordChangeWarning": "Kasa şifrenizi değiştirmek üzeresiniz. Eğer şifrenizi kaybederseniz, kasaya bir daha erişme şansınız olmayacak.",
+        "passwordChangeWarning": "Kasa şifresini değiştirmek üzeresiniz. Bu şifreyi kaybederseniz kasaya tekrar erişemezsiniz.",
         "currentPasswordPlaceholder": "Mevcut Şifre",
         "newPasswordPlaceholder": "Yeni Şifre",
-        "confirmPasswordPlaceholder": "Yeni Şifre Tekrar",
+        "confirmPasswordPlaceholder": "Yeni Şifreyi Onayla",
         "updating": "Güncelleniyor...",
         "updatePasswordButton": "Şifreyi Güncelle",
         "addMember": "Üye Ekle",
         "settings": "Ayarlar",
-        "emptyTitle": "Bu kasa henüz boş.",
-        "emptyDescription": "Hemen içerik eklemeye başla!"
+        "emptyTitle": "Bu kasa şu an boş.",
+        "emptyDescription": "İçerik eklemeye hemen başla!"
     },
     "vaultInvite": {
-        "errorEmailRequired": "E-posta zorunludur.",
-        "errorPasswordRequired": "Şifre zorunludur.",
-        "errorPasswordLength": "Şifre en az 6 karakter olmalı.",
-        "errorLocked": "Kasa kilitli. Davet göndermek için önce kasayı açmalısınız.",
+        "errorEmailRequired": "E-posta adresi gerekli.",
+        "errorPasswordRequired": "Şifre gerekli.",
+        "errorPasswordLength": "Şifre en az 6 karakter olmalıdır.",
+        "errorLocked": "Kasa kilitli. Davet göndermeden önce kilidi açmalısınız.",
         "inviteSentTitle": "Davet Gönderildi",
-        "inviteSentEncryptedBody": "Kullanıcı başarıyla eklendi.\n\n⚠️ ÖNEMLİ: Belirlediğiniz şifreyi ({password}) kullanıcıya güvenli bir yoldan iletmelisiniz. O bu şifreyi bilmeden kasayı açamaz.",
+        "inviteSentEncryptedBody": "Kullanıcı başarıyla eklendi.\n\n⚠️ ÖNEMLİ: Belirlediğiniz şifreyi ({password}) kullanıcıyla güvenli bir şekilde paylaşmalısınız. Şifre olmadan kasayı açamazlar.",
         "sharePasswordButton": "Şifreyi Paylaş",
-        "shareMessage": "Seni Lovics kasama davet ettim. Kasayı açmak için kullanacağın şifre: {password}",
-        "inviteSentBody": "Kullanıcı başarıyla kasaya eklendi.",
+        "shareMessage": "Seni Lovics kasama davet ettim. Açmak için şifre: {password}",
+        "inviteSentBody": "Kullanıcı kasaya başarıyla eklendi.",
         "okButton": "Tamam",
-        "removeMemberTitle": "Üye Çıkar",
-        "removeMemberConfirm": "{name} adlı kullanıcıyı bu kasadan çıkarmak istediğinize emin misiniz?",
+        "removeMemberTitle": "Üyeyi Kaldır",
+        "removeMemberConfirm": "{name} adlı kullanıcıyı bu kasadan kaldırmak istediğinize emin misiniz?",
         "cancel": "İptal",
-        "remove": "Çıkar",
-        "title": "Üyeler & Davet",
+        "remove": "Kaldır",
+        "title": "Üyeler ve Davet",
         "inviteSectionTitle": "Yeni Üye Davet Et",
-        "inviteDescriptionEncrypted": "Davet edeceğiniz kişi için geçici veya kalıcı bir şifre belirleyin. Bu şifreyi ona siz iletmelisiniz.",
-        "inviteDescription": "Kullanıcıyı davet etmek için e-posta adresini girin.",
+        "inviteDescriptionEncrypted": "Davet edilen kişi için geçici veya kalıcı bir şifre belirleyin. Bu şifreyi onlara manuel olarak iletmelisiniz.",
+        "inviteDescription": "Davet etmek istediğiniz kullanıcının e-posta adresini girin.",
         "emailPlaceholder": "Kullanıcı E-postası",
         "passwordPlaceholder": "Bu Davet İçin Şifre Belirle",
         "sendButton": "Davet Gönder",
-        "membersSectionTitle": "Üyeler ({count})",
-        "youSuffix": "(Sen)",
+        "membersSectionTitle": "Üyeler",
+        "youSuffix": "(Siz)",
         "ownerBadge": "Sahibi"
     },
     "vaultPassword": {
         "errorKeyNotFound": "Kasa anahtarı bulunamadı (Veri hatası).",
-        "errorWrongPassword": "Şifre yanlış, lütfen tekrar deneyin.",
+        "errorWrongPassword": "Hatalı şifre, lütfen tekrar deneyin.",
         "errorFailed": "Kasa açılamadı.",
-        "descriptionMember": "Size iletilen kasa şifresini girin.",
-        "descriptionOwner": "Kasa şifrenizi girin.",
+        "descriptionMember": "Seninle paylaşılan kasa şifresini gir.",
+        "descriptionOwner": "Kasa şifreni gir.",
         "passwordPlaceholder": "Kasa Şifresi",
         "unlockButton": "Kilidi Aç"
     },
     "vaultSettings": {
         "themeDefault": "Varsayılan",
-        "themeDark": "Karanlık",
+        "themeDark": "Koyu",
         "themeNature": "Doğa",
         "themeSpace": "Uzay",
         "successUpdated": "Kasa bilgileri güncellendi.",
@@ -185,7 +197,7 @@
         "title": "Kasa Ayarları",
         "vaultNamePlaceholder": "Kasa Adı",
         "appearanceSection": "Görünüm",
-        "iconLabel": "Simge",
+        "iconLabel": "İkon",
         "colorLabel": "Renk",
         "themeLabel": "Tema",
         "securitySection": "Güvenlik",
@@ -194,29 +206,29 @@
         "encryptionDisabledAlert": "Bu kasa şifrelenmemiş.",
         "saveButton": "Değişiklikleri Kaydet",
         "deleteVaultButton": "Kasayı Sil",
-        "selectIconTitle": "Simge Seç",
+        "selectIconTitle": "İkon Seç",
         "selectColorTitle": "Renk Seç",
         "selectThemeTitle": "Tema Seç"
     },
     "vaultUpload": {
         "filePickError": "Dosya seçilirken bir sorun oluştu.",
-        "title": "Yeni Paylaşım",
+        "title": "Yeni Gönderi",
         "postTitleLabel": "Başlık",
-        "postTitlePlaceholder": "Paylaşımına bir başlık ekle...",
+        "postTitlePlaceholder": "Gönderine bir başlık ekle...",
         "mediaLabel": "Medya",
         "pickMedia": "Fotoğraf veya Video Seç",
-        "descriptionPlaceholder": "Açıklama ekle (opsiyonel)...",
+        "descriptionPlaceholder": "Açıklama ekle (isteğe bağlı)...",
         "addMore": "Daha fazla ekle",
         "uploading": "Yükleniyor...",
         "share": "Paylaş"
     },
     "onboarding": {
         "appName": "lovics.",
-        "startButton": "Hemen Başla",
+        "startButton": "Hadi Başlayalım",
         "memoryLabel": "Anı",
         "step1": {
             "title": "En Özel Anlar",
-            "subtitle": "Bazı anılar sadece iki kişiye aittir. Paylaştıkça değerlenen, başkalarının asla göremeyeceği o anlar.",
+            "subtitle": "Bazı anılar sadece iki kişiye aittir. Paylaşıldıkça değerlenen, başkalarının asla göremeyeceği anlar.",
             "card": {
                 "title": "Bizim Hikayemiz",
                 "subtitle": "Sadece İkimiz"
@@ -224,18 +236,42 @@
         },
         "step2": {
             "title": "Sadece Bizim Ekip",
-            "subtitle": "Gülüşmelerimiz, saçmalamalarımız... Kimsenin izleyemediği, sadece bize özel o güvenli alanda.",
+            "subtitle": "Kahkahalarımız, saçmalıklarımız... Kimsenin izlemediği o güvenli alanda, sadece bize özel.",
             "card": {
-                "title": "Bizim Tayfa",
-                "subtitle": "Gizli Ortam"
+                "title": "Ekibimiz",
+                "subtitle": "Gizli Alan"
             }
         },
         "step3": {
-            "title": "Tamamen Sana Ait",
-            "subtitle": "Anıların senin mahremin. Burada üçüncü şahıslara yer yok, sadece sen ve seçtiklerin var.",
+            "title": "Tamamen Sana Özel",
+            "subtitle": "Anıların senin özel hayatındır. Burada üçüncü şahıslara yer yok; sadece sen ve seçtiğin kişiler.",
             "card": {
-                "title": "Gözlerden Uzak",
+                "title": "Meraklı Gözlerden Uzak",
                 "subtitle": "Tamamen Gizli"
+            }
+        },
+        "errors": {
+            "UNKNOWN": "Bilinmeyen bir hata oluştu. Üzerinde çalışıyoruz, lütfen daha sonra tekrar deneyin.",
+            "INVALID_EMAIL_OR_PASSWORD": "Geçersiz e-posta veya şifre.",
+            "PASSWORD_TOO_SHORT": "Şifre en az 8 karakter olmalıdır.",
+            "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "Bu kullanıcı zaten mevcut. Lütfen başka bir e-posta kullanın.",
+            "firstName": {
+                "required": "Ad gereklidir."
+            },
+            "lastName": {
+                "required": "Soyad gereklidir."
+            },
+            "email": {
+                "required": "E-posta gereklidir.",
+                "invalid": "Geçersiz e-posta adresi."
+            },
+            "password": {
+                "required": "Şifre gereklidir.",
+                "min": "Şifre en az 8 karakter olmalıdır."
+            },
+            "confirmPassword": {
+                "required": "Şifre onayı gereklidir.",
+                "mismatch": "Şifreler eşleşmiyor."
             }
         }
     },
@@ -243,53 +279,30 @@
         "step1": {
             "title": "Seni özledik!",
             "subtitle": "Kaldığın yerden devam etmeye hazır mısın?",
-            "button": "Devam Et",
-            "form": {
-                "email": {
-                    "label": "E-posta",
-                    "error": {
-                        "required": "Lütfen e-posta adresinizi giriniz.",
-                        "invalid": "Geçersiz e-posta adresi girdiniz."
-                    }
-                }
-            }
+            "button": "Devam Et"
         },
         "step2": {
-            "title": "Tekrar hoşgeldin",
+            "title": "Tekrar hoş geldin",
             "subtitle": "Giriş yapmak için şifreni gir",
             "button": "Giriş Yap",
-            "form": {
-                "password": {
-                    "label": "Şifre",
-                    "error": {
-                        "required": "Lütfen şifrenizi giriniz."
-                    }
-                }
-            },
             "forgotPassword": "Şifreni mi unuttun?"
         },
-        "noAccount": "Hesabınız yok mu?",
+        "noAccount": "Hesabın yok mu?",
         "signUp": "Kayıt Ol"
     },
     "signUp": {
         "welcome": {
-            "title": "Aramıza katıl!",
-            "subtitle": "Seni aramızda görmek için can atıyoruz.",
+            "title": "Bize katıl!",
+            "subtitle": "Seni aramızda görmek için sabırsızlanıyoruz.",
             "button": "Devam Et"
         },
         "step1": {
             "form": {
                 "firstName": {
-                    "label": "Ad",
-                    "error": {
-                        "required": "Lütfen adınızı giriniz."
-                    }
+                    "label": "Ad"
                 },
                 "lastName": {
-                    "label": "Soyad",
-                    "error": {
-                        "required": "Lütfen soyadınızı giriniz."
-                    }
+                    "label": "Soyad"
                 }
             }
         },
@@ -298,57 +311,46 @@
             "subtitle": "Kayıt olmak için e-posta adresini gir",
             "form": {
                 "email": {
-                    "label": "E-posta",
-                    "error": {
-                        "required": "Lütfen e-posta adresinizi giriniz.",
-                        "invalid": "Geçersiz e-posta adresi girdiniz."
-                    }
+                    "label": "E-posta"
                 }
             }
         },
         "step3": {
-            "title": "Şifre oluştur",
-            "subtitle": "Kayıt olmak için şifreni gir",
+            "title": "Şifre Oluştur",
+            "subtitle": "Kayıt olmak için şifreni belirle",
             "button": "Kayıt Ol",
             "form": {
                 "password": {
                     "label": "Şifre"
                 },
                 "confirmPassword": {
-                    "label": "Şifre Tekrar"
+                    "label": "Şifreyi Onayla"
                 }
             }
         },
-        "hasAccount": "Hesabınız var mı?",
+        "hasAccount": "Zaten hesabın var mı?",
         "signInLink": "Giriş Yap"
     },
     "forgotPassword": {
         "step1": {
-            "title": "Şifre Yenileme",
-            "subtitle": "Hesabına ait e-posta adresini gir.",
+            "title": "Şifreyi Sıfırla",
+            "subtitle": "Hesabına bağlı e-posta adresini gir.",
             "button": "Kod Gönder",
             "form": {
                 "email": {
-                    "label": "E-posta",
-                    "error": {
-                        "required": "E-posta adresi zorunludur.",
-                        "invalid": "Geçersiz e-posta adresi."
-                    }
+                    "label": "E-posta"
                 }
             }
         },
         "step2": {
             "title": "Doğrulama Kodu",
-            "subtitle": "E-posta adresine gönderilen kodu gir.",
+            "subtitle": "E-postana gönderilen kodu gir.",
             "button": "Doğrula",
             "resendCode": "Kodu Tekrar Gönder",
-            "resendIn": "Tekrar gönderime kalan süre: {{seconds}}sn",
+            "resendIn": "{{seconds}}sn içinde tekrar gönder",
             "form": {
                 "otp": {
-                    "label": "Doğrulama Kodu",
-                    "error": {
-                        "required": "Lütfen kodu giriniz."
-                    }
+                    "label": "Doğrulama Kodu"
                 }
             }
         },
@@ -358,22 +360,16 @@
             "button": "Şifreyi Güncelle",
             "form": {
                 "password": {
-                    "label": "Yeni Şifre",
-                    "error": {
-                        "required": "Şifre zorunludur."
-                    }
+                    "label": "Yeni Şifre"
                 },
                 "confirmPassword": {
-                    "label": "Şifre Tekrar",
-                    "error": {
-                        "match": "Şifreler eşleşmiyor."
-                    }
+                    "label": "Şifreyi Onayla"
                 }
             }
         },
         "success": {
             "title": "Başarılı",
-            "message": "Şifreniz başarıyla güncellendi. Şimdi giriş yapabilirsiniz.",
+            "message": "Şifreniz başarıyla güncellendi. Artık giriş yapabilirsiniz.",
             "button": "Giriş Yap"
         },
         "signInLink": "Giriş Yap"

@@ -8,7 +8,8 @@ import { useRouter } from "expo-router";
 import { Button, Description, Input, Label, TextField } from "heroui-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import { alert } from "@/lib/alert";
 
 type SelectedFile = {
     id: string;
@@ -61,7 +62,7 @@ export default function UploadScreen() {
                 setSelectedFiles((prev) => [...prev, ...newFiles]);
             }
         } catch (error) {
-            Alert.alert(t("common.error"), t("vaultUpload.filePickError"));
+            alert(t("common.error"), t("vaultUpload.filePickError"));
         }
     };
 
@@ -89,7 +90,6 @@ export default function UploadScreen() {
                         value={title}
                         onChangeText={setTitle}
                         variant="secondary"
-                        className="bg-gray-50 border-background-tertiary"
                     />
                 </TextField>
 
@@ -165,7 +165,6 @@ export default function UploadScreen() {
                                                     })
                                                 }
                                                 variant="secondary"
-                                                className="bg-gray-50 border-transparent text-sm"
                                             />
                                         </TextField>
                                     </View>

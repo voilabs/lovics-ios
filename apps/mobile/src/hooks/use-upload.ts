@@ -3,9 +3,10 @@ import { useVault } from "@/context/vault";
 import * as FileSystem from "expo-file-system/legacy";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert } from "react-native";
 import { Encrypter } from "@/lib/encrypter";
 import { Buffer } from "buffer";
+import { alert } from "@/lib/alert";
+import { useTranslation } from "react-i18next";
 
 type SelectedFile = {
     id: string;
@@ -17,8 +18,8 @@ type SelectedFile = {
 };
 
 export const useUpload = () => {
+    const { t } = useTranslation();
     const router = useRouter();
-    // ARTIK 'password' YERİNE 'masterKey' KULLANIYORUZ
     const { vaultId, masterKey, data: vault } = useVault();
 
     const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
@@ -41,16 +42,20 @@ export const useUpload = () => {
 
             // GÜVENLİK KONTROLÜ: Kasa şifreliyse ve Master Key yoksa işlem yapma
             if (isEncrypted && !masterKey) {
-                Alert.alert(
-                    "Hata",
-                    "Kasa kilitli. Dosya yüklemek için lütfen önce kasanın kilidini açın.",
-                );
+                alert(t("common.error"), t("vaults.upload.masterKeyRequired"));
                 return;
             }
 
             if (selectedFiles.length === 0)
-                return Alert.alert("Uyarı", "Lütfen en az bir dosya seçin.");
-            if (!title.trim()) return Alert.alert("Hata", "Başlık zorunludur.");
+                return alert(
+                    t("common.warning"),
+                    t("vaults.upload.noFilesSelected"),
+                );
+            if (!title.trim())
+                return alert(
+                    t("common.error"),
+                    t("vaults.upload.titleRequired"),
+                );
 
             setIsUploading(true);
 
@@ -282,11 +287,11 @@ export const useUpload = () => {
                 });
             }
 
-            Alert.alert(
-                "Başarılı",
+            alert(
+                t("common.success"),
                 isEncrypted
-                    ? "Dosyalar başarıyla şifrelendi ve yüklendi."
-                    : "Dosyalar başarıyla yüklendi.",
+                    ? t("vaults.upload.successEncrypted")
+                    : t("vaults.upload.success"),
             );
             router.back();
         } catch (error: any) {
@@ -294,8 +299,8 @@ export const useUpload = () => {
             const msg =
                 error?.response?.data?.message ||
                 error.message ||
-                "Bilinmeyen hata";
-            Alert.alert("Hata", `Yükleme sırasında bir sorun oluştu: ${msg}`);
+                t("common.unknownError");
+            alert(t("common.error"), t("vaults.upload.error", { msg }));
         } finally {
             setIsUploading(false);
         }

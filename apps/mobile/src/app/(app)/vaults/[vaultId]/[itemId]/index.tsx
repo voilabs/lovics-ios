@@ -17,9 +17,9 @@ import {
     Modal,
     TouchableOpacity,
     StyleSheet,
-    Alert,
     TextInput,
 } from "react-native";
+import { alert } from "@/lib/alert";
 
 import {
     Gesture,
@@ -41,6 +41,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ScrollView } from "react-native";
+import { useTranslation } from "react-i18next";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
@@ -452,6 +453,7 @@ const ContentItem = ({ item, isCurrentItem, onClose }: any) => {
 
 // --- MAIN PAGE ---
 export default function Page() {
+    const { t } = useTranslation();
     const { vaultId, itemId } = useLocalSearchParams<{
         vaultId: string;
         itemId: string;
@@ -515,7 +517,7 @@ export default function Page() {
                 setCurrentImageIndex(0);
             }
         } catch (err) {
-            Alert.alert("Hata", "Silme başarısız.");
+            alert(t("common.error"), t("vaults.item.deleteError"));
         } finally {
             setIsLoading(false);
         }
@@ -547,7 +549,7 @@ export default function Page() {
                     try {
                         alt = encrypter.decryptText(content.alt);
                     } catch (e) {
-                        alt = "Dosya";
+                        alt = t("vaults.item.alt");
                     }
                 }
                 return { ...content, alt };
@@ -587,7 +589,9 @@ export default function Page() {
                             <Ionicons name="close" size={24} color="gray" />
                         </TouchableOpacity>
                         <Text className="text-lg font-medium">
-                            {selectedPaths.size} Seçildi
+                            {t("vaults.item.selected", {
+                                count: selectedPaths.size,
+                            })}
                         </Text>
                     </View>
                     <TouchableOpacity
@@ -603,7 +607,7 @@ export default function Page() {
                 </View>
             ) : (
                 <Header
-                    title={title || "İçerik Detayı"}
+                    title={title || t("vaults.item.title")}
                     onBack={() => router.back()}
                     rightContent={
                         <TouchableOpacity onPress={() => performDelete([])}>

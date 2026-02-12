@@ -6,7 +6,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useThemeColor } from "heroui-native";
 import React, { useState, useEffect } from "react";
-import { StatusBar, Text, TouchableOpacity, View, Alert } from "react-native";
+import { StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { alert } from "@/lib/alert";
 
 export default function ForgotPasswordScreen() {
     const { t } = useTranslation();
@@ -47,14 +48,14 @@ export default function ForgotPasswordScreen() {
             });
 
             if (error) {
-                Alert.alert(t("common.error"), error.message);
+                alert(t("common.error"), error.message);
                 return false;
             }
 
             setCooldown(120); // 120 seconds cooldown
             return true;
         } catch (e) {
-            Alert.alert(t("common.error"), "An error occurred.");
+            alert(t("common.error"), "An error occurred.");
             return false;
         }
     };
@@ -121,7 +122,7 @@ export default function ForgotPasswordScreen() {
                     });
 
                 if (error) {
-                    Alert.alert(t("common.error"), error.message);
+                    alert(t("common.error"), error.message);
                     return false;
                 }
 
@@ -194,7 +195,7 @@ export default function ForgotPasswordScreen() {
                         };
                     }
 
-                    Alert.alert(
+                    alert(
                         t("forgotPassword.success.title"),
                         t("forgotPassword.success.message"),
                         [

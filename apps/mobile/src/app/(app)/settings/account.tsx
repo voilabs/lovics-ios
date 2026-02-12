@@ -6,7 +6,8 @@ import { useRouter } from "expo-router";
 import { Button, Input, TextField } from "heroui-native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { alert } from "@/lib/alert";
 
 export default function AccountSettingsScreen() {
     const { t } = useTranslation();
@@ -18,7 +19,7 @@ export default function AccountSettingsScreen() {
 
     const handleSave = async () => {
         if (!name.trim())
-            return Alert.alert(
+            return alert(
                 t("common.error"),
                 t("settingsAccount.errorNameRequired"),
             );
@@ -30,17 +31,17 @@ export default function AccountSettingsScreen() {
             });
 
             if (error) {
-                Alert.alert("Hata", error.message || "Güncelleme başarısız.");
-            } else {
-                Alert.alert(
-                    t("common.success"),
-                    t("settingsAccount.successUpdated"),
+                alert(
+                    t("common.error"),
+                    error.message || "Güncelleme başarısız.",
                 );
+            } else {
+                alert(t("common.success"), t("settingsAccount.successUpdated"));
                 router.back();
             }
         } catch (e) {
             console.error(e);
-            Alert.alert(t("common.error"), t("favorites.genericError"));
+            alert(t("common.error"), t("favorites.genericError"));
         } finally {
             setIsLoading(false);
         }
@@ -66,7 +67,6 @@ export default function AccountSettingsScreen() {
                                 )}
                                 value={name}
                                 onChangeText={setName}
-                                className="h-12 flex items-center px-4"
                                 variant="secondary"
                             />
                         </TextField>
@@ -83,7 +83,6 @@ export default function AccountSettingsScreen() {
                                 )}
                                 value={surname}
                                 onChangeText={setSurname}
-                                className="h-12 flex items-center px-4"
                                 variant="secondary"
                             />
                         </TextField>
@@ -97,8 +96,8 @@ export default function AccountSettingsScreen() {
                             <Input
                                 value={user?.email || ""}
                                 editable={false}
-                                className="h-12 flex items-center px-4 opacity-70"
                                 variant="secondary"
+                                isDisabled
                             />
                         </TextField>
                         <Text className="text-xs text-muted-foreground ml-1 mt-1">
