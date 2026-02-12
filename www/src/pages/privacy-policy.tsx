@@ -2,9 +2,17 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
 export default function PrivacyPolicy() {
     const t = useTranslations("PrivacyPolicy");
+    const searchParams = useSearchParams();
+
+    const isInApp = useMemo(() => {
+        return searchParams.get("in_app") === "true";
+    }, [searchParams]);
+
     return (
         <>
             <Head>
@@ -12,7 +20,7 @@ export default function PrivacyPolicy() {
                 <meta name="description" content={`Lovics ${t("title")}`} />
             </Head>
             <main className="min-h-screen bg-white">
-                <Navbar />
+                {!isInApp && <Navbar />}
                 <div className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         {/* Header */}
@@ -217,7 +225,7 @@ export default function PrivacyPolicy() {
                         </div>
                     </div>
                 </div>
-                <Footer />
+                {!isInApp && <Footer />}
             </main>
         </>
     );
