@@ -232,6 +232,7 @@ export default function StepForm({
                                                             }}
                                                             variant="secondary"
                                                             autoFocus
+                                                            className="!pl-12"
                                                             {...field}
                                                         />
                                                         <View className="absolute left-4 top-0 bottom-0 justify-center pointer-events-none">

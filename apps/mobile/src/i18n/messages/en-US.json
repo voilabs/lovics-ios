@@ -288,13 +288,23 @@
         "step1": {
             "title": "We missed you!",
             "subtitle": "Ready to pick up where you left off?",
-            "button": "Continue"
+            "button": "Continue",
+            "form": {
+                "email": {
+                    "label": "Email"
+                }
+            }
         },
         "step2": {
             "title": "Welcome back",
             "subtitle": "Enter your password to sign in",
             "button": "Sign In",
-            "forgotPassword": "Forgot your password?"
+            "forgotPassword": "Forgot your password?",
+            "form": {
+                "password": {
+                    "label": "Password"
+                }
+            }
         },
         "noAccount": "Don't have an account?",
         "signUp": "Sign Up"

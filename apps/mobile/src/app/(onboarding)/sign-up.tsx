@@ -70,14 +70,14 @@ export default function SignInScreen() {
                 if (!email)
                     return {
                         input: "email",
-                        message: t("signUp.step2.form.email.error.required"),
+                        message: t("onboarding.errors.email.required"),
                     };
 
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     return {
                         input: "email",
-                        message: t("signUp.step2.form.email.error.invalid"),
+                        message: t("onboarding.errors.email.invalid"),
                     };
                 }
                 setStep(2);

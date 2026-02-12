@@ -28,7 +28,7 @@ export default function SignInScreen() {
                 if (!email)
                     return {
                         input: "email",
-                        message: t("signIn.step1.form.email.error.required"),
+                        message: t("onboarding.errors.email.required"),
                     };
 
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
