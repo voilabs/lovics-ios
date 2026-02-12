@@ -18,6 +18,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     TextInput,
+    FlatList,
+    ScrollView,
 } from "react-native";
 import { alert } from "@/lib/alert";
 
@@ -36,11 +38,9 @@ import Animated, {
     Extrapolation,
     useAnimatedProps,
 } from "react-native-reanimated";
-import { FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ScrollView } from "react-native";
 import { useTranslation } from "react-i18next";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -60,10 +60,8 @@ const ImageViewerItem = ({
     const translateY = useSharedValue(0);
     const translateX = useSharedValue(0);
     const opacity = useSharedValue(1);
-
     const [isZoomed, setIsZoomed] = useState(false);
 
-    // Başka resme geçildiğinde mevcut resmin zoomunu sıfırla
     useEffect(() => {
         if (!isCurrentItem) {
             scale.value = withTiming(1);
@@ -88,18 +86,9 @@ const ImageViewerItem = ({
                 runOnJS(setIsZoomed)(false);
             } else {
                 let targetScale = Math.round(Math.min(scale.value, 8) * 4) / 4;
-                if (targetScale < 1.25) {
-                    targetScale = 1;
-                    scale.value = withSpring(1);
-                    savedScale.value = 1;
-                    translateX.value = withSpring(0);
-                    translateY.value = withSpring(0);
-                    runOnJS(setIsZoomed)(false);
-                } else {
-                    scale.value = withSpring(targetScale);
-                    savedScale.value = targetScale;
-                    runOnJS(setIsZoomed)(true);
-                }
+                scale.value = withSpring(targetScale);
+                savedScale.value = targetScale;
+                runOnJS(setIsZoomed)(true);
             }
         });
 
@@ -108,23 +97,21 @@ const ImageViewerItem = ({
             if (scale.value > 1) {
                 translateX.value = e.translationX;
                 translateY.value = e.translationY;
-            } else {
-                if (e.translationY > 0) {
-                    translateY.value = e.translationY;
-                    opacity.value = interpolate(
-                        e.translationY,
-                        [0, 300],
-                        [1, 0.5],
-                        Extrapolation.CLAMP,
-                    );
-                }
+            } else if (e.translationY > 0) {
+                translateY.value = e.translationY;
+                opacity.value = interpolate(
+                    e.translationY,
+                    [0, 300],
+                    [1, 0.5],
+                    Extrapolation.CLAMP,
+                );
             }
         })
         .onEnd((e) => {
             if (scale.value <= 1.1) {
-                if (e.translationY > 150 || e.velocityY > 800) {
+                if (e.translationY > 150 || e.velocityY > 800)
                     runOnJS(onClose)();
-                } else {
+                else {
                     translateY.value = withSpring(0);
                     opacity.value = withTiming(1);
                 }
@@ -152,26 +139,24 @@ const ImageViewerItem = ({
         });
 
     const animatedStyle = useAnimatedStyle(() => ({
-        // @ts-ignore
         transform: [
             { translateX: translateX.value },
             { translateY: translateY.value },
             { scale: scale.value },
-        ],
+        ] as any,
         opacity: opacity.value,
     }));
 
-    const zoomIndicatorStyle = useAnimatedStyle(() => {
-        return {
-            opacity: withTiming(scale.value > 1.1 ? 1 : 0),
-        };
-    });
+    const zoomIndicatorStyle = useAnimatedStyle(() => ({
+        opacity: withTiming(scale.value > 1.1 ? 1 : 0),
+    }));
 
-    const animatedTextProps = useAnimatedProps(() => {
-        return {
-            text: `${scale.value.toFixed(1)}x`,
-        } as any;
-    });
+    const animatedTextProps = useAnimatedProps(
+        () =>
+            ({
+                text: `${scale.value.toFixed(1)}x`,
+            }) as any,
+    );
 
     return (
         <GestureDetector
@@ -179,14 +164,14 @@ const ImageViewerItem = ({
         >
             <View style={{ flex: 1 }}>
                 <Animated.View
-                    style={
+                    style={[
                         {
                             width: SCREEN_WIDTH,
                             height: SCREEN_HEIGHT,
                             justifyContent: "center",
-                            ...animatedStyle,
-                        } as any
-                    }
+                        },
+                        animatedStyle as any,
+                    ]}
                 >
                     <EncryptedImage
                         src={url}
@@ -229,35 +214,30 @@ const ImageViewerItem = ({
 };
 
 // --- VIDEO VIEWER ITEM ---
+// --- VIDEO VIEWER ITEM ---
 const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
     const scale = useSharedValue(1);
     const savedScale = useSharedValue(1);
     const translateY = useSharedValue(0);
     const translateX = useSharedValue(0);
     const opacity = useSharedValue(1);
-
     const [isZoomed, setIsZoomed] = useState(false);
 
     const player = useVideoPlayer(url, (p) => {
         p.loop = false;
     });
 
+    // Otomatik oynatma yönetimi
     useEffect(() => {
-        const subscription = player.addListener("playToEnd", () => {
-            scale.value = withTiming(1);
-            translateY.value = withTiming(0);
-            translateX.value = withTiming(0);
-            opacity.value = withTiming(1);
-            savedScale.value = 1;
-            runOnJS(setIsZoomed)(false);
-        });
+        if (!player) return;
+        if (isCurrentItem) {
+            player.play();
+        } else {
+            player.pause();
+        }
+    }, [isCurrentItem, player]);
 
-        return () => {
-            subscription.remove();
-        };
-    }, [player]);
-
-    // Reset zoom when switching items
+    // Kaydırma yapıldığında zoom sıfırlama
     useEffect(() => {
         if (!isCurrentItem) {
             scale.value = withTiming(1);
@@ -271,6 +251,7 @@ const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
 
     const pinchGesture = Gesture.Pinch()
         .onUpdate((e) => {
+            // 8x limit kontrolü (Görseldeki mantığın aynısı)
             scale.value = savedScale.value * e.scale;
         })
         .onEnd(() => {
@@ -281,13 +262,12 @@ const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
                 translateY.value = withSpring(0);
                 runOnJS(setIsZoomed)(false);
             } else {
+                // Maksimum 8x limit ve 0.25'lik basamaklara yuvarlama
                 let targetScale = Math.round(Math.min(scale.value, 8) * 4) / 4;
                 if (targetScale < 1.25) {
                     targetScale = 1;
                     scale.value = withSpring(1);
                     savedScale.value = 1;
-                    translateX.value = withSpring(0);
-                    translateY.value = withSpring(0);
                     runOnJS(setIsZoomed)(false);
                 } else {
                     scale.value = withSpring(targetScale);
@@ -302,23 +282,21 @@ const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
             if (scale.value > 1) {
                 translateX.value = e.translationX;
                 translateY.value = e.translationY;
-            } else {
-                if (e.translationY > 0) {
-                    translateY.value = e.translationY;
-                    opacity.value = interpolate(
-                        e.translationY,
-                        [0, 300],
-                        [1, 0.5],
-                        Extrapolation.CLAMP,
-                    );
-                }
+            } else if (e.translationY > 0) {
+                translateY.value = e.translationY;
+                opacity.value = interpolate(
+                    e.translationY,
+                    [0, 300],
+                    [1, 0.5],
+                    Extrapolation.CLAMP,
+                );
             }
         })
         .onEnd((e) => {
             if (scale.value <= 1.1) {
-                if (e.translationY > 150 || e.velocityY > 800) {
+                if (e.translationY > 150 || e.velocityY > 800)
                     runOnJS(onClose)();
-                } else {
+                else {
                     translateY.value = withSpring(0);
                     opacity.value = withTiming(1);
                 }
@@ -346,26 +324,28 @@ const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
         });
 
     const animatedStyle = useAnimatedStyle(() => ({
-        // @ts-ignore
         transform: [
             { translateX: translateX.value },
             { translateY: translateY.value },
             { scale: scale.value },
-        ],
+        ] as any,
         opacity: opacity.value,
     }));
 
-    const zoomIndicatorStyle = useAnimatedStyle(() => {
-        return {
-            opacity: withTiming(scale.value > 1.1 ? 1 : 0),
-        };
-    });
+    // Zoom Göstergesi Stili
+    const zoomIndicatorStyle = useAnimatedStyle(() => ({
+        opacity: withTiming(scale.value > 1.1 ? 1 : 0),
+    }));
 
-    const animatedTextProps = useAnimatedProps(() => {
-        return {
-            text: `${scale.value.toFixed(1)}x`,
-        } as any;
-    });
+    // Dinamik Text Değeri
+    const animatedTextProps = useAnimatedProps(
+        () =>
+            ({
+                text: `${scale.value.toFixed(1)}x`,
+            }) as any,
+    );
+
+    if (!player) return null;
 
     return (
         <GestureDetector
@@ -373,14 +353,14 @@ const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
         >
             <View style={{ flex: 1 }}>
                 <Animated.View
-                    style={
+                    style={[
                         {
                             width: SCREEN_WIDTH,
                             height: SCREEN_HEIGHT,
                             justifyContent: "center",
-                            ...animatedStyle,
-                        } as any
-                    }
+                        },
+                        animatedStyle as any,
+                    ]}
                 >
                     <VideoView
                         style={{ width: "100%", height: "100%" }}
@@ -389,6 +369,8 @@ const VideoViewerItem = ({ url, onClose, isCurrentItem }: any) => {
                         contentFit="contain"
                     />
                 </Animated.View>
+
+                {/* Zoom Göstergesi - Image ile aynı */}
                 <Animated.View
                     style={[
                         {
@@ -505,23 +487,19 @@ export default function Page() {
                         pathsToDelete.length > 0 ? pathsToDelete : undefined,
                 },
             });
+            afterDelete();
+            refetch("contents");
             if (
                 pathsToDelete.length === 0 ||
                 pathsToDelete.length === contents.length
             ) {
-                afterDelete();
-                refetch("contents");
                 router.replace(`/vaults/${vaultId}`);
             } else {
-                const newContents = contents.filter(
-                    (c) => !pathsToDelete.includes(c.path),
+                setContents((prev) =>
+                    prev.filter((c) => !pathsToDelete.includes(c.path)),
                 );
-                afterDelete();
-                refetch("contents");
-                setContents(newContents);
                 setIsSelectionMode(false);
                 setSelectedPaths(new Set());
-                setCurrentImageIndex(0);
             }
         } catch (err) {
             alert(t("common.error"), t("vaults.item.deleteError"));
@@ -539,15 +517,19 @@ export default function Page() {
                     ? Encrypter.fromMasterKey(masterKey)
                     : null;
 
-            let t = data.title,
-                d = data.description;
+            let t_val = data.title,
+                d_val = data.description;
             if (encrypter) {
                 try {
-                    t = encrypter.decryptText(data.title);
-                } catch (e) {}
+                    t_val = encrypter.decryptText(data.title);
+                } catch (e) {
+                    console.error("Decryption failed", e);
+                }
                 try {
-                    d = encrypter.decryptText(data.description);
-                } catch (e) {}
+                    d_val = encrypter.decryptText(data.description);
+                } catch (e) {
+                    console.error("Decryption failed", e);
+                }
             }
 
             const c = data.contents.map((content: any) => {
@@ -562,8 +544,8 @@ export default function Page() {
                 return { ...content, alt };
             });
 
-            setTitle(t);
-            setDescription(d);
+            setTitle(t_val);
+            setDescription(d_val);
             setContents(c);
         } catch (err) {
             router.back();
@@ -602,7 +584,7 @@ export default function Page() {
                         </Text>
                     </View>
                     <TouchableOpacity
-                        onPress={() => {
+                        onPress={() =>
                             alert(
                                 t("common.delete"),
                                 t("vaults.item.deleteConfirm", {
@@ -611,22 +593,21 @@ export default function Page() {
                                 [
                                     {
                                         text: t("common.cancel"),
-                                        onPress: (setIsOpen) =>
-                                            setIsOpen(false),
+                                        onPress: (set) => set(false),
                                         variant: "secondary",
                                     },
                                     {
                                         text: t("common.delete"),
-                                        onPress: (setIsOpen) =>
+                                        onPress: (set) =>
                                             performDelete(
                                                 Array.from(selectedPaths),
-                                                () => setIsOpen(false),
+                                                () => set(false),
                                             ),
                                         variant: "danger-soft",
                                     },
                                 ],
-                            );
-                        }}
+                            )
+                        }
                         disabled={selectedPaths.size === 0}
                     >
                         <Ionicons
@@ -642,7 +623,7 @@ export default function Page() {
                     onBack={() => router.back()}
                     rightContent={
                         <TouchableOpacity
-                            onPress={() => {
+                            onPress={() =>
                                 alert(
                                     t("common.delete"),
                                     t("vaults.item.deleteConfirm", {
@@ -651,21 +632,20 @@ export default function Page() {
                                     [
                                         {
                                             text: t("common.cancel"),
-                                            onPress: (setIsOpen) =>
-                                                setIsOpen(false),
+                                            onPress: (set) => set(false),
                                             variant: "secondary",
                                         },
                                         {
                                             text: t("common.delete"),
-                                            onPress: (setIsOpen) =>
+                                            onPress: (set) =>
                                                 performDelete([], () =>
-                                                    setIsOpen(false),
+                                                    set(false),
                                                 ),
                                             variant: "danger-soft",
                                         },
                                     ],
-                                );
-                            }}
+                                )
+                            }
                         >
                             <Ionicons
                                 name="trash-outline"
@@ -708,7 +688,7 @@ export default function Page() {
                         }
                         scrollEventThrottle={16}
                     >
-                        {contents?.map((file: any, index: number) => (
+                        {contents?.map((file, index) => (
                             <View
                                 key={index}
                                 style={{ width: SCREEN_WIDTH }}
@@ -775,7 +755,6 @@ export default function Page() {
                         </View>
                     )}
                 </View>
-                <View className="h-20" />
             </ScrollView>
 
             <Modal
@@ -814,6 +793,9 @@ export default function Page() {
                             offset: SCREEN_WIDTH * index,
                             index,
                         })}
+                        windowSize={3}
+                        maxToRenderPerBatch={1}
+                        removeClippedSubviews={true}
                         onMomentumScrollEnd={(ev) =>
                             setViewerIndex(
                                 Math.round(
@@ -831,25 +813,6 @@ export default function Page() {
                         )}
                         keyExtractor={(_, i) => i.toString()}
                     />
-
-                    {contents[viewerIndex]?.alt && (
-                        <View
-                            style={{
-                                position: "absolute",
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                paddingBottom: insets.bottom + 20,
-                                paddingTop: 20,
-                                paddingHorizontal: 20,
-                                backgroundColor: "rgba(0,0,0,0.6)",
-                            }}
-                        >
-                            <Text className="text-white text-center text-base font-medium">
-                                {contents[viewerIndex].alt}
-                            </Text>
-                        </View>
-                    )}
                 </GestureHandlerRootView>
             </Modal>
         </Container>

@@ -1,26 +1,23 @@
-import React, { useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { BackHandler } from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { alert } from "@/lib/alert";
 import { useTranslation } from "react-i18next";
-
+import { useToast } from "heroui-native";
+import { useRouter } from "expo-router";
 export const useDoubleBackToExit = () => {
     const { t } = useTranslation();
     const navigation = useNavigation();
     const lastPressTimeRef = useRef<number>(0);
+    const router = useRouter();
 
     useFocusEffect(
         useCallback(() => {
             const onBackPress = () => {
                 const now = Date.now();
-                const state = navigation.getState();
+                const DOUBLE_PRESS_DELAY = 2000;
 
-                // 1. Senaryo: Kullanıcı zaten ana sayfada (stack boş)
-                // 2. Senaryo: Kullanıcı çok hızlı (2 saniye içinde) iki kere geri bastı
-                if (
-                    state.index === 0 ||
-                    now - lastPressTimeRef.current < 2000
-                ) {
+                if (now - lastPressTimeRef.current < DOUBLE_PRESS_DELAY) {
                     alert(
                         t("common.exitAppTitle"),
                         t("common.exitAppMessage"),
@@ -37,18 +34,21 @@ export const useDoubleBackToExit = () => {
                             },
                         ],
                     );
-
-                    // Zamanı sıfırlıyoruz ki Alert açıkken bir daha basarsa tekrar tetiklenmesin
                     lastPressTimeRef.current = 0;
                     return true;
                 }
+                if (router.canGoBack()) return false;
 
-                // İlk basışta zamanı kaydet ve normal geri gitmesine izin ver
                 lastPressTimeRef.current = now;
-                return false;
+                return true;
             };
 
-            BackHandler.addEventListener("hardwareBackPress", onBackPress);
-        }, [navigation]),
+            const subscription = BackHandler.addEventListener(
+                "hardwareBackPress",
+                onBackPress,
+            );
+
+            return () => subscription.remove();
+        }, [t, navigation]),
     );
 };

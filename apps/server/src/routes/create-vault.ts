@@ -2,6 +2,8 @@ import { db } from "@/drizzle";
 import { vaultMembersTable, vaultsTable } from "@/drizzle/schema"; // Şema yolunuzun doğru olduğundan emin olun (örn: @/drizzle/schemas/vaults)
 import { createRoute } from "@/lib/createRoute";
 import { t } from "elysia";
+import { Filter } from "bad-words";
+const filter = new Filter();
 
 export default createRoute(
     {
@@ -16,7 +18,7 @@ export default createRoute(
                         const [newVault] = await tx
                             .insert(vaultsTable)
                             .values({
-                                title: body.title,
+                                title: filter.clean(body.title),
                                 icon: body.icon,
                                 color: body.color,
                                 theme: body.theme,

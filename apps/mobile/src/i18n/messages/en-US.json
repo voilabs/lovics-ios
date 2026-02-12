@@ -24,7 +24,8 @@
         "ok": "OK",
         "exitAppTitle": "Exit App",
         "exitAppMessage": "Are you sure you want to exit the app?",
-        "exit": "Exit App"
+        "exit": "Exit App",
+        "pressAgainToExit": "Press again to exit"
     },
     "vaults": {
         "item": {
