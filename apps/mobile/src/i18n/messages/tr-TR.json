@@ -24,11 +24,12 @@
         "ok": "Tamam",
         "exitAppTitle": "Uygulamadan Çık",
         "exitAppMessage": "Uygulamadan çıkmak istediğinize emin misiniz?",
-        "exit": "Çıkış Yap"
+        "exit": "Uygulamadan Çık"
     },
     "vaults": {
         "item": {
             "deleteError": "Kasa silinirken hata oluştu: {{msg}}",
+            "deleteConfirm": "{{size}} ögeyi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
             "alt": "Kasa",
             "title": "Kasa",
             "selected": "{{count}} seçildi"
@@ -77,13 +78,13 @@
         "vaultPasswordPlaceholder": "Bir şifre belirleyin",
         "confirmPasswordLabel": "Şifreyi Onayla",
         "confirmPasswordPlaceholder": "Şifreyi tekrar girin",
-        "encryptionWarning": "Bu şifreyi sunucularımızda saklamıyoruz. Eğer unutursanız dosyalarınızı açamazsınız.",
+        "encryptionWarning": "Bu şifreyi sunucularımızda saklamıyoruz. Unutursanız dosyalarınızı açamazsınız.",
         "createButton": "Oluştur"
     },
     "profile": {
         "accountSection": "Hesap",
         "settingsItem": "Ayarlar",
-        "signOutItem": "Oturumu Kapat",
+        "signOutItem": "Çıkış Yap",
         "appSection": "Uygulama",
         "aboutItem": "Hakkında",
         "subtitle": "Profilini yönet"
@@ -94,8 +95,8 @@
         "searching": "Aranıyor...",
         "noResults": "Sonuç bulunamadı",
         "placeholder": "Kasa ve medya ara",
-        "startSearching": "Aramaya başlamak için yazmaya başlayın",
-        "noResultsText": "\"{{query}}\" için sonuç bulunamadı."
+        "startSearching": "Aramaya başlamak için yazın",
+        "noResultsText": "\"{{query}}\" için sonuç bulunamadı"
     },
     "settingsAccount": {
         "errorNameRequired": "İsim alanı boş bırakılamaz.",
@@ -126,14 +127,14 @@
         "currentPasswordPlaceholder": "Mevcut şifrenizi girin",
         "newPasswordLabel": "Yeni Şifre",
         "newPasswordPlaceholder": "Yeni şifrenizi girin",
-        "confirmPasswordLabel": "Yeni Şifre (Tekrar)",
+        "confirmPasswordLabel": "Yeni Şifre (Onay)",
         "confirmPasswordPlaceholder": "Yeni şifrenizi tekrar girin",
         "updateButton": "Şifreyi Güncelle"
     },
     "vaultDetail": {
         "errorPasswordEmpty": "Yeni şifre boş olamaz.",
         "errorMismatch": "Şifreler eşleşmiyor.",
-        "errorLocked": "Kasa kilitli olduğu için şifre değiştirilemez.",
+        "errorLocked": "Kasa kilitli, şifre değiştirilemez.",
         "successUpdated": "Şifre başarıyla güncellendi.",
         "optionsTitle": "Seçenekler",
         "lockVault": "Kasayı Kilitle",
@@ -154,9 +155,9 @@
         "errorEmailRequired": "E-posta adresi gerekli.",
         "errorPasswordRequired": "Şifre gerekli.",
         "errorPasswordLength": "Şifre en az 6 karakter olmalıdır.",
-        "errorLocked": "Kasa kilitli. Davet göndermeden önce kilidi açmalısınız.",
+        "errorLocked": "Kasa kilitli. Davet göndermek için önce kilidi açmalısınız.",
         "inviteSentTitle": "Davet Gönderildi",
-        "inviteSentEncryptedBody": "Kullanıcı başarıyla eklendi.\n\n⚠️ ÖNEMLİ: Belirlediğiniz şifreyi ({password}) kullanıcıyla güvenli bir şekilde paylaşmalısınız. Şifre olmadan kasayı açamazlar.",
+        "inviteSentEncryptedBody": "Kullanıcı başarıyla eklendi.\n\n⚠️ ÖNEMLİ: Belirlediğiniz şifreyi kullanıcıyla güvenli bir şekilde paylaşmalısınız. Şifre olmadan kasayı açamazlar.",
         "sharePasswordButton": "Şifreyi Paylaş",
         "shareMessage": "Seni Lovics kasama davet ettim. Açmak için şifre: {password}",
         "inviteSentBody": "Kullanıcı kasaya başarıyla eklendi.",
@@ -165,7 +166,7 @@
         "removeMemberConfirm": "{name} adlı kullanıcıyı bu kasadan kaldırmak istediğinize emin misiniz?",
         "cancel": "İptal",
         "remove": "Kaldır",
-        "title": "Üyeler ve Davet",
+        "title": "Üyeler & Davet",
         "inviteSectionTitle": "Yeni Üye Davet Et",
         "inviteDescriptionEncrypted": "Davet edilen kişi için geçici veya kalıcı bir şifre belirleyin. Bu şifreyi onlara manuel olarak iletmelisiniz.",
         "inviteDescription": "Davet etmek istediğiniz kullanıcının e-posta adresini girin.",
@@ -220,11 +221,17 @@
         "descriptionPlaceholder": "Açıklama ekle (isteğe bağlı)...",
         "addMore": "Daha fazla ekle",
         "uploading": "Yükleniyor...",
-        "share": "Paylaş"
+        "share": "Paylaş",
+        "masterKeyRequired": "Ana Anahtar (Master Key) gereklidir.",
+        "noFilesSelected": "Dosya seçilmedi.",
+        "titleRequired": "Başlık gereklidir.",
+        "success": "Gönderi başarıyla yüklendi.",
+        "successEncrypted": "Gönderi başarıyla yüklendi (Şifreli).",
+        "error": "Yükleme hatası: {msg}"
     },
     "onboarding": {
         "appName": "lovics.",
-        "startButton": "Hadi Başlayalım",
+        "startButton": "Başlayalım",
         "memoryLabel": "Anı",
         "step1": {
             "title": "En Özel Anlar",
@@ -238,13 +245,13 @@
             "title": "Sadece Bizim Ekip",
             "subtitle": "Kahkahalarımız, saçmalıklarımız... Kimsenin izlemediği o güvenli alanda, sadece bize özel.",
             "card": {
-                "title": "Ekibimiz",
+                "title": "Bizim Ekip",
                 "subtitle": "Gizli Alan"
             }
         },
         "step3": {
-            "title": "Tamamen Sana Özel",
-            "subtitle": "Anıların senin özel hayatındır. Burada üçüncü şahıslara yer yok; sadece sen ve seçtiğin kişiler.",
+            "title": "Tamamen Senin",
+            "subtitle": "Anıların senin özel hayatındır. Burada üçüncü şahıslara yer yok, sadece sen ve seçtiğin kişiler.",
             "card": {
                 "title": "Meraklı Gözlerden Uzak",
                 "subtitle": "Tamamen Gizli"
@@ -254,7 +261,7 @@
             "UNKNOWN": "Bilinmeyen bir hata oluştu. Üzerinde çalışıyoruz, lütfen daha sonra tekrar deneyin.",
             "INVALID_EMAIL_OR_PASSWORD": "Geçersiz e-posta veya şifre.",
             "PASSWORD_TOO_SHORT": "Şifre en az 8 karakter olmalıdır.",
-            "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "Bu kullanıcı zaten mevcut. Lütfen başka bir e-posta kullanın.",
+            "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "Kullanıcı zaten mevcut. Lütfen başka bir e-posta adresi kullanın.",
             "firstName": {
                 "required": "Ad gereklidir."
             },

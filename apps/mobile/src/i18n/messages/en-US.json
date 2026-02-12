@@ -29,6 +29,7 @@
     "vaults": {
         "item": {
             "deleteError": "Error deleting vault: {{msg}}",
+            "deleteConfirm": "Are you sure you want to delete {{size}} items? This action cannot be undone.",
             "alt": "Vault",
             "title": "Vault",
             "selected": "{{count}} selected"
@@ -158,7 +159,7 @@
         "errorPasswordLength": "Password must be at least 6 characters.",
         "errorLocked": "Vault is locked. You must unlock it before sending an invite.",
         "inviteSentTitle": "Invite Sent",
-        "inviteSentEncryptedBody": "User added successfully.\n\n⚠️ IMPORTANT: You must securely share the password ({password}) you set with the user. They cannot open the vault without it.",
+        "inviteSentEncryptedBody": "User added successfully.\n\n⚠️ IMPORTANT: You must securely share the password you set with the user. They cannot open the vault without it.",
         "sharePasswordButton": "Share Password",
         "shareMessage": "I invited you to my Lovics vault. The password to open it is: {password}",
         "inviteSentBody": "User successfully added to the vault.",
@@ -222,7 +223,13 @@
         "descriptionPlaceholder": "Add description (optional)...",
         "addMore": "Add more",
         "uploading": "Uploading...",
-        "share": "Share"
+        "share": "Share",
+        "masterKeyRequired": "Master Key is required.",
+        "noFilesSelected": "No files selected.",
+        "titleRequired": "Title is required.",
+        "success": "Post uploaded successfully.",
+        "successEncrypted": "Post uploaded successfully (Encrypted).",
+        "error": "Error uploading post: {msg}"
     },
     "onboarding": {
         "appName": "lovics.",

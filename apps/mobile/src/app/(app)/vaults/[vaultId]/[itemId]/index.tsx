@@ -469,7 +469,7 @@ export default function Page() {
     const [selectedPaths, setSelectedPaths] = useState<Set<string>>(new Set());
 
     const router = useRouter();
-    const { data: vault, masterKey } = useVault();
+    const { data: vault, masterKey, refetch } = useVault();
     const { paddingLeft } = useContainer({});
     const insets = useSafeAreaInsets();
     const safePadding = typeof paddingLeft === "number" ? paddingLeft : 16;
@@ -493,7 +493,10 @@ export default function Page() {
         });
     };
 
-    const performDelete = async (pathsToDelete: string[]) => {
+    const performDelete = async (
+        pathsToDelete: string[],
+        afterDelete: () => void,
+    ) => {
         try {
             setIsLoading(true);
             await api.delete(`/vaults/${vaultId}/contents/${itemId}`, {
@@ -505,12 +508,16 @@ export default function Page() {
             if (
                 pathsToDelete.length === 0 ||
                 pathsToDelete.length === contents.length
-            )
-                router.back();
-            else {
+            ) {
+                afterDelete();
+                refetch("contents");
+                router.replace(`/vaults/${vaultId}`);
+            } else {
                 const newContents = contents.filter(
                     (c) => !pathsToDelete.includes(c.path),
                 );
+                afterDelete();
+                refetch("contents");
                 setContents(newContents);
                 setIsSelectionMode(false);
                 setSelectedPaths(new Set());
@@ -595,7 +602,31 @@ export default function Page() {
                         </Text>
                     </View>
                     <TouchableOpacity
-                        onPress={() => performDelete(Array.from(selectedPaths))}
+                        onPress={() => {
+                            alert(
+                                t("common.delete"),
+                                t("vaults.item.deleteConfirm", {
+                                    size: selectedPaths.size,
+                                }),
+                                [
+                                    {
+                                        text: t("common.cancel"),
+                                        onPress: (setIsOpen) =>
+                                            setIsOpen(false),
+                                        variant: "secondary",
+                                    },
+                                    {
+                                        text: t("common.delete"),
+                                        onPress: (setIsOpen) =>
+                                            performDelete(
+                                                Array.from(selectedPaths),
+                                                () => setIsOpen(false),
+                                            ),
+                                        variant: "danger-soft",
+                                    },
+                                ],
+                            );
+                        }}
                         disabled={selectedPaths.size === 0}
                     >
                         <Ionicons
@@ -610,7 +641,32 @@ export default function Page() {
                     title={title || t("vaults.item.title")}
                     onBack={() => router.back()}
                     rightContent={
-                        <TouchableOpacity onPress={() => performDelete([])}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                alert(
+                                    t("common.delete"),
+                                    t("vaults.item.deleteConfirm", {
+                                        size: contents.length,
+                                    }),
+                                    [
+                                        {
+                                            text: t("common.cancel"),
+                                            onPress: (setIsOpen) =>
+                                                setIsOpen(false),
+                                            variant: "secondary",
+                                        },
+                                        {
+                                            text: t("common.delete"),
+                                            onPress: (setIsOpen) =>
+                                                performDelete([], () =>
+                                                    setIsOpen(false),
+                                                ),
+                                            variant: "danger-soft",
+                                        },
+                                    ],
+                                );
+                            }}
+                        >
                             <Ionicons
                                 name="trash-outline"
                                 size={24}

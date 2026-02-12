@@ -24,6 +24,10 @@
             "predictiveBackGestureEnabled": false,
             "package": "com.voilabs.lovics"
         },
+        "androidNavigationBar": {
+            "barStyle": "dark-content",
+            "visible": "sticky-immersive"
+        },
         "web": {
             "output": "static",
             "favicon": "./assets/favicon.png"
@@ -40,7 +44,7 @@
                         "image": "./assets/splashscreen.png",
                         "backgroundColor": "#FFFFFF"
                     },
-                    "imageWidth": 100
+                    "imageWidth": 200
                 }
             ]
         ],

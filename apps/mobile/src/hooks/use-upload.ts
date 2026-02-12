@@ -2,7 +2,7 @@ import { api } from "@/lib/api";
 import { useVault } from "@/context/vault";
 import * as FileSystem from "expo-file-system/legacy";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Encrypter } from "@/lib/encrypter";
 import { Buffer } from "buffer";
 import { alert } from "@/lib/alert";
@@ -20,8 +20,8 @@ type SelectedFile = {
 export const useUpload = () => {
     const { t } = useTranslation();
     const router = useRouter();
-    const { vaultId, masterKey, data: vault } = useVault();
-
+    const { vaultId, masterKey, data: vault, refetch } = useVault();
+    const lastUploadPress = useRef(0);
     const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
     const [title, setTitle] = useState("");
     const [isUploading, setIsUploading] = useState(false);
@@ -36,26 +36,28 @@ export const useUpload = () => {
 
     const handleUpload = async () => {
         try {
+            if (isUploading) return;
+            const now = Date.now();
+            if (now - lastUploadPress.current < 2000) return;
+            lastUploadPress.current = now;
+
             const isEncrypted = await api
                 .get(`/vaults/${vaultId}/is-encrypted`)
                 .then((res) => res.data);
 
             // GÜVENLİK KONTROLÜ: Kasa şifreliyse ve Master Key yoksa işlem yapma
             if (isEncrypted && !masterKey) {
-                alert(t("common.error"), t("vaults.upload.masterKeyRequired"));
+                alert(t("common.error"), t("vaultUpload.masterKeyRequired"));
                 return;
             }
 
             if (selectedFiles.length === 0)
                 return alert(
                     t("common.warning"),
-                    t("vaults.upload.noFilesSelected"),
+                    t("vaultUpload.noFilesSelected"),
                 );
             if (!title.trim())
-                return alert(
-                    t("common.error"),
-                    t("vaults.upload.titleRequired"),
-                );
+                return alert(t("common.error"), t("vaultUpload.titleRequired"));
 
             setIsUploading(true);
 
@@ -290,19 +292,28 @@ export const useUpload = () => {
             alert(
                 t("common.success"),
                 isEncrypted
-                    ? t("vaults.upload.successEncrypted")
-                    : t("vaults.upload.success"),
+                    ? t("vaultUpload.successEncrypted")
+                    : t("vaultUpload.success"),
+                [
+                    {
+                        onPress: (setIsOpen) => {
+                            setIsOpen(false);
+                            refetch("contents");
+                            router.replace(`/vaults/${vaultId}`);
+                        },
+                        text: t("common.ok"),
+                    },
+                ],
             );
-            router.back();
         } catch (error: any) {
             console.error("Genel Upload Hatası:", error);
             const msg =
                 error?.response?.data?.message ||
                 error.message ||
                 t("common.unknownError");
-            alert(t("common.error"), t("vaults.upload.error", { msg }));
-        } finally {
+            alert(t("common.error"), t("vaultUpload.error", { msg }));
             setIsUploading(false);
+        } finally {
         }
     };
 

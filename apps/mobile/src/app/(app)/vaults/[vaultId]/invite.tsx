@@ -103,9 +103,7 @@ export default function InviteMemberScreen() {
             if (isEncrypted) {
                 alert(
                     t("vaultInvite.inviteSentTitle"),
-                    t("vaultInvite.inviteSentEncryptedBody", {
-                        password: invitePassword,
-                    }),
+                    t("vaultInvite.inviteSentEncryptedBody"),
                     [
                         {
                             text: t("vaultInvite.sharePasswordButton"),
